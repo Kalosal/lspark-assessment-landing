@@ -196,6 +196,10 @@ body {
 .responsive-flex {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  max-width: 1680px;
+  align-items: center;
+  justify-content: center;
 }
 .responsive-flex > div {
   margin: 0px 12px;
