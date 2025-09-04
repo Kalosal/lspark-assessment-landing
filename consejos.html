@@ -235,9 +235,9 @@
         if (!userParam) {
           // window.location.href = "https://assess.lingrolearning.com";
         } else {
-          // const currentSrc = iframe.src;
-          // const newSrc = currentSrc + `&u=${userParam}`;
-          // iframe.src = newSrc;
+          const currentSrc = iframe.src;
+          const newSrc = currentSrc + `&u=${userParam}`;
+          iframe.src = newSrc;
         }
       });
     </script>
