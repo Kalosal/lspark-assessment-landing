@@ -203,6 +203,12 @@ body {
 .responsive-flex > div {
   margin: 0px 12px;
 }
+.scenario-description {
+  display: none;
+}
+.topics {
+  display: none;
+}
 
 @media (max-width: 768px) {
   .container {
