@@ -187,7 +187,7 @@ body {
   width: 100%;
   height: 1200px;
   display: none;
-  min-width: 50vw;
+  min-width: 55vw;
 }
 .chat-container iframe {
   width: 100%;
