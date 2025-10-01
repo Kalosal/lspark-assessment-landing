@@ -58,6 +58,7 @@ body {
 }
 .main-content {
   flex-grow: 0.3;
+  min-width: 20vw;
 }
 .chat-container {
   flex-grow: 1;
