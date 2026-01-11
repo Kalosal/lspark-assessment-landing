@@ -7,92 +7,13 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <h1>Sano y Salvo Podcast</h1>
-        <p>Healthy Life Changes Interview</p>
-      </div>
-
-      <div class="responsive-flex">
-        <div class="main-content">
-          <div class="scenario-image">
-            <img
-              src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
-              alt="Podcast interview setting with microphones and recording equipment"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-            />
-            <div
-              style="
-                display: none;
-                padding: 60px 20px;
-                background: linear-gradient(135deg, #4caf50, #2e7d32);
-                color: white;
-                border-radius: 8px;
-              "
-            >
-              <div style="font-size: 48px; margin-bottom: 15px">🎙️💚</div>
-              <p style="font-size: 1.1em">Podcast Interview</p>
-            </div>
-            <h3>Picture This Moment</h3>
-            <p>Being interviewed about your healthy lifestyle journey</p>
-          </div>
-
-          <div class="scenario-description">
-            <h2>The Scenario</h2>
-            <p>
-              You are being interviewed on the podcast: Sano y Salvo, a podcast
-              about healthy life changes. In this conversation, you will:
-            </p>
-          </div>
-
-          <div class="topics">
-            <div class="topic">
-              <h3>
-                📊 Answer general questions about the choices you and your
-                friends/family have made over the past year
-              </h3>
-              <p>
-                Be prepared to discuss healthy food habits, sleep patterns, and
-                general exercise trends.
-              </p>
-            </div>
-            <div class="topic">
-              <h3>
-                💡 Answer questions about what happened in your life to cause
-                you to change your habits
-              </h3>
-            </div>
-            <div class="topic">
-              <h3>
-                🔄 Ask and answer questions about how you used to manage your
-                life versus how you do now
-              </h3>
-            </div>
-          </div>
-
-          <div class="cta-section">
-            <button class="cta-button" onclick="startConversation()">
-              Start the Interview
-              <!-- Not Yet Available -->
-            </button>
-          </div>
-        </div>
-        <div class="chat-container">
-          <iframe
-            allow="microphone; autoplay"
-            src="https://lingro.retool.com/embedded/public/dc1c9d3f-b69e-4a31-9308-3757535ec536/assessment?ep=90da3d1e-36ad-4ed0-8714-3c38dce6249b&embedded=true"
-          ></iframe>
-        </div>
-      </div>
-
-      <div class="footer">
-        <p>
-          Your health journey inspires others • Share your transformation story
-        </p>
-        <p style="margin-top: 10px; font-size: 0.8em">© LingroLearning</p>
-      </div>
+    <div style="width: 100vw; height: 100vh">
+      <iframe
+        allow="microphone; autoplay"
+        width="100%"
+        height="100%"
+        src="https://lingro.retool.com/embedded/public/12f80a95-93a8-436b-91f6-46856f4961ca/assessmentv2?ep=90da3d1e-36ad-4ed0-8714-3c38dce6249b"
+      ></iframe>
     </div>
-
-    <script src="scripts.js"></script>
   </body>
 </html>
