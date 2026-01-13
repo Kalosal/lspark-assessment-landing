@@ -10,7 +10,7 @@ The bots leverage LSPark conversational bot infrastructure.
 The landing pages are deployed with AWS Amplify.
 
 - [Here is the Github repo](https://github.com/Kalosal/lspark-assessment-landing)
-- [Here is the app](https://us-east-2.console.aws.amazon.com/amplify/apps/d303qgzh2d01e/overview) in Amplify
+- [Here is the app](https://us-east-2.console.aws.amazon.com/amplify/apps/d303qgzh2d01e/overview) in Amplify. Note that it is in Ohio region
 
 The apps are deployed on a custom domain: [assess.lingrolearning.com](https://assess.lingrolearning.com/). DNS for this subdomain is managed in GoDaddy (as is lingrolearning.com). The subdomain is configured - via CNAME records - to point to this Amplify deployment. The security certificate is managed in AWS ACM and is specific to this subdomain.
 
