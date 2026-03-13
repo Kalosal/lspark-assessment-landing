@@ -1,611 +1,1022 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LingroLearning · AI Conversation Pilot</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LingroLearning · AI Conversation Pilot</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --blue: #0F75B8;
-      --green: #4D8004;
-      --charcoal: #3B3C3E;
-      --offwhite: #F7F7F7;
-      --purple: #94416D;
-      --orange: #F7941D;
-      --cinnabar: #D94A3D;
-      --blue-light: #e6f3fb;
-      --blue-mid: #c2def4;
-    }
+      :root {
+        --blue: #0f75b8;
+        --green: #4d8004;
+        --charcoal: #3b3c3e;
+        --offwhite: #f7f7f7;
+        --purple: #94416d;
+        --orange: #f7941d;
+        --cinnabar: #d94a3d;
+        --blue-light: #e6f3fb;
+        --blue-mid: #c2def4;
+      }
 
-    html { scroll-behavior: smooth; }
+      html {
+        scroll-behavior: smooth;
+      }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--offwhite);
-      color: var(--charcoal);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--offwhite);
+        color: var(--charcoal);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
 
-    /* ── TOP STRIPE ── */
-    .top-stripe {
-      height: 5px;
-      background: linear-gradient(90deg, var(--blue) 0%, var(--green) 40%, var(--orange) 70%, var(--cinnabar) 100%);
-    }
+      /* ── TOP STRIPE ── */
+      .top-stripe {
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--blue) 0%,
+          var(--green) 40%,
+          var(--orange) 70%,
+          var(--cinnabar) 100%
+        );
+      }
 
-    /* ── HEADER ── */
-    header {
-      background: #fff;
-      padding: 20px 48px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border-bottom: 1px solid #e8e8e8;
-    }
+      /* ── HEADER ── */
+      header {
+        background: #fff;
+        padding: 20px 48px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        border-bottom: 1px solid #e8e8e8;
+      }
 
-    .logo-mark {
-      width: 38px;
-      height: 38px;
-      background: var(--blue);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      .logo-mark {
+        width: 38px;
+        height: 38px;
+        background: var(--blue);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .logo-mark svg { width: 22px; height: 22px; }
+      .logo-mark svg {
+        width: 22px;
+        height: 22px;
+      }
 
-    .logo-text {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: var(--blue);
-      letter-spacing: -0.02em;
-    }
+      .logo-text {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: var(--blue);
+        letter-spacing: -0.02em;
+      }
 
-    .logo-text span { color: var(--green); }
+      .logo-text span {
+        color: var(--green);
+      }
 
-    .pilot-badge {
-      margin-left: auto;
-      background: var(--blue-light);
-      color: var(--blue);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 20px;
-      border: 1px solid var(--blue-mid);
-    }
+      .pilot-badge {
+        margin-left: auto;
+        background: var(--blue-light);
+        color: var(--blue);
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+        border-radius: 20px;
+        border: 1px solid var(--blue-mid);
+      }
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      background: linear-gradient(135deg, #0a5a8f 0%, var(--blue) 50%, #1a8fd1 100%);
-      padding: 72px 48px 80px;
-      overflow: hidden;
-    }
+      /* ── HERO ── */
+      .hero {
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          #0a5a8f 0%,
+          var(--blue) 50%,
+          #1a8fd1 100%
+        );
+        padding: 72px 48px 80px;
+        overflow: hidden;
+      }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 340px; height: 340px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 50%;
-    }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 340px;
+        height: 340px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+      }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; left: 30%;
-      width: 500px; height: 200px;
-      background: rgba(77,128,4,0.15);
-      border-radius: 50%;
-      transform: rotate(-10deg);
-    }
+      .hero::after {
+        content: "";
+        position: absolute;
+        bottom: -80px;
+        left: 30%;
+        width: 500px;
+        height: 200px;
+        background: rgba(77, 128, 4, 0.15);
+        border-radius: 50%;
+        transform: rotate(-10deg);
+      }
 
-    .hero-inner {
-      max-width: 780px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
+      .hero-inner {
+        max-width: 780px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
 
-    .chapter-eyebrow {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.7rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+      .chapter-eyebrow {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-    .chapter-eyebrow::before {
-      content: '';
-      display: block;
-      width: 28px; height: 2px;
-      background: var(--orange);
-      border-radius: 2px;
-    }
+      .chapter-eyebrow::before {
+        content: "";
+        display: block;
+        width: 28px;
+        height: 2px;
+        background: var(--orange);
+        border-radius: 2px;
+      }
 
-    .hero h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: #fff;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
+      .hero h1 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 900;
+        font-size: clamp(2rem, 4vw, 3rem);
+        color: #fff;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        margin-bottom: 12px;
+      }
 
-    .hero h1 em {
-      font-style: normal;
-      color: var(--orange);
-    }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--orange);
+      }
 
-    .hero-sub {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.82);
-      font-weight: 300;
-      line-height: 1.6;
-      max-width: 560px;
-    }
+      .hero-sub {
+        font-size: 1.05rem;
+        color: rgba(255, 255, 255, 0.82);
+        font-weight: 300;
+        line-height: 1.6;
+        max-width: 560px;
+      }
 
-    /* ── WELCOME CARD ── */
-    .welcome-section {
-      max-width: 860px;
-      margin: -32px auto 0;
-      padding: 0 32px;
-      position: relative;
-      z-index: 10;
-    }
+      /* ── WELCOME CARD ── */
+      .welcome-section {
+        max-width: 860px;
+        margin: -32px auto 0;
+        padding: 0 32px;
+        position: relative;
+        z-index: 10;
+      }
 
-    .welcome-card {
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 8px 40px rgba(15,117,184,0.12), 0 2px 8px rgba(0,0,0,0.06);
-      padding: 40px 48px;
-      border-top: 4px solid var(--green);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.6s ease 0.2s forwards;
-    }
+      .welcome-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow:
+          0 8px 40px rgba(15, 117, 184, 0.12),
+          0 2px 8px rgba(0, 0, 0, 0.06);
+        padding: 40px 48px;
+        border-top: 4px solid var(--green);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.6s ease 0.2s forwards;
+      }
 
-    .welcome-label {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 10px;
-    }
+      .welcome-label {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        font-size: 0.65rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 10px;
+      }
 
-    .welcome-card h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.35rem;
-      color: var(--charcoal);
-      margin-bottom: 14px;
-      letter-spacing: -0.02em;
-    }
+      .welcome-card h2 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 1.35rem;
+        color: var(--charcoal);
+        margin-bottom: 14px;
+        letter-spacing: -0.02em;
+      }
 
-    .welcome-card p {
-      font-size: 0.97rem;
-      line-height: 1.75;
-      color: #555;
-      font-weight: 400;
-    }
+      .welcome-card p {
+        font-size: 0.97rem;
+        line-height: 1.75;
+        color: #555;
+        font-weight: 400;
+      }
 
-    .welcome-card p strong {
-      color: var(--blue);
-      font-weight: 600;
-    }
+      .welcome-card p strong {
+        color: var(--blue);
+        font-weight: 600;
+      }
 
-    /* ── OUTCOMES SECTION ── */
-    .outcomes-section {
-      max-width: 860px;
-      margin: 40px auto 0;
-      padding: 0 32px;
-    }
+      /* ── OUTCOMES SECTION ── */
+      .outcomes-section {
+        max-width: 860px;
+        margin: 40px auto 0;
+        padding: 0 32px;
+      }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
 
-    .section-header h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: -0.01em;
-      color: var(--charcoal);
-    }
+      .section-header h3 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 1rem;
+        letter-spacing: -0.01em;
+        color: var(--charcoal);
+      }
 
-    .section-header .line {
-      flex: 1;
-      height: 1px;
-      background: #ddd;
-    }
+      .section-header .line {
+        flex: 1;
+        height: 1px;
+        background: #ddd;
+      }
 
-    .outcomes-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+      .outcomes-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
 
-    @media (max-width: 620px) {
-      .outcomes-grid { grid-template-columns: 1fr; }
-      .hero { padding: 52px 24px 70px; }
-      .welcome-card { padding: 28px 24px; }
-      header { padding: 16px 24px; }
-    }
+      @media (max-width: 620px) {
+        .outcomes-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          padding: 52px 24px 70px;
+        }
+        .welcome-card {
+          padding: 28px 24px;
+        }
+        header {
+          padding: 16px 24px;
+        }
+      }
 
-    .outcome-card {
-      background: #fff;
-      border-radius: 14px;
-      padding: 22px 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      border: 1px solid #ebebeb;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-      opacity: 0;
-      transform: translateY(16px);
-    }
+      .outcome-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 22px 24px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        border: 1px solid #ebebeb;
+        transition:
+          box-shadow 0.2s ease,
+          transform 0.2s ease;
+        opacity: 0;
+        transform: translateY(16px);
+      }
 
-    .outcome-card:hover {
-      box-shadow: 0 6px 24px rgba(15,117,184,0.1);
-      transform: translateY(-2px);
-    }
+      .outcome-card:hover {
+        box-shadow: 0 6px 24px rgba(15, 117, 184, 0.1);
+        transform: translateY(-2px);
+      }
 
-    .outcome-card:nth-child(1) { animation: fadeUp 0.5s ease 0.35s forwards; }
-    .outcome-card:nth-child(2) { animation: fadeUp 0.5s ease 0.45s forwards; }
-    .outcome-card:nth-child(3) { animation: fadeUp 0.5s ease 0.55s forwards; }
-    .outcome-card:nth-child(4) { animation: fadeUp 0.5s ease 0.65s forwards; }
+      .outcome-card:nth-child(1) {
+        animation: fadeUp 0.5s ease 0.35s forwards;
+      }
+      .outcome-card:nth-child(2) {
+        animation: fadeUp 0.5s ease 0.45s forwards;
+      }
+      .outcome-card:nth-child(3) {
+        animation: fadeUp 0.5s ease 0.55s forwards;
+      }
+      .outcome-card:nth-child(4) {
+        animation: fadeUp 0.5s ease 0.65s forwards;
+      }
 
-    .outcome-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 0.75rem;
-      color: #fff;
-      background: var(--blue);
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      letter-spacing: 0.02em;
-    }
+      .outcome-num {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 900;
+        font-size: 0.75rem;
+        color: #fff;
+        background: var(--blue);
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        letter-spacing: 0.02em;
+      }
 
-    .outcome-card:nth-child(2) .outcome-num { background: var(--green); }
-    .outcome-card:nth-child(3) .outcome-num { background: var(--purple); }
-    .outcome-card:nth-child(4) .outcome-num { background: var(--orange); }
+      .outcome-card:nth-child(2) .outcome-num {
+        background: var(--green);
+      }
+      .outcome-card:nth-child(3) .outcome-num {
+        background: var(--purple);
+      }
+      .outcome-card:nth-child(4) .outcome-num {
+        background: var(--orange);
+      }
 
-    .outcome-text {
-      font-size: 0.9rem;
-      line-height: 1.55;
-      color: var(--charcoal);
-      font-weight: 500;
-      padding-top: 5px;
-    }
+      .outcome-text {
+        font-size: 0.9rem;
+        line-height: 1.55;
+        color: var(--charcoal);
+        font-weight: 500;
+        padding-top: 5px;
+      }
 
-    /* ── TOOLS SECTION ── */
-    .tools-section {
-      max-width: 860px;
-      margin: 40px auto 0;
-      padding: 0 32px;
-    }
+      /* ── TOOLS SECTION ── */
+      .tools-section {
+        max-width: 860px;
+        margin: 40px auto 0;
+        padding: 0 32px;
+      }
 
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 0;
-    }
+      .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 0;
+      }
 
-    @media (max-width: 700px) {
-      .tools-grid { grid-template-columns: 1fr; }
-    }
+      @media (max-width: 700px) {
+        .tools-grid {
+          grid-template-columns: 1fr;
+        }
+      }
 
-    .tool-card {
-      background: var(--blue);
-      border-radius: 16px;
-      padding: 28px 24px;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      opacity: 0;
-      transform: translateY(16px);
-      cursor: pointer;
-    }
+      .tool-card {
+        background: var(--blue);
+        border-radius: 16px;
+        padding: 28px 24px;
+        text-align: center;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        opacity: 0;
+        transform: translateY(16px);
+        cursor: pointer;
+      }
 
-    .tool-card:nth-child(1) {
-      background: linear-gradient(135deg, #0a5a8f, var(--blue));
-      animation: fadeUp 0.5s ease 0.75s forwards;
-    }
-    .tool-card:nth-child(2) {
-      background: linear-gradient(135deg, #3a6003, var(--green));
-      animation: fadeUp 0.5s ease 0.85s forwards;
-    }
-    .tool-card:nth-child(3) {
-      background: linear-gradient(135deg, #7a3459, var(--purple));
-      animation: fadeUp 0.5s ease 0.95s forwards;
-    }
+      .tool-card:nth-child(1) {
+        background: linear-gradient(135deg, #0a5a8f, var(--blue));
+        animation: fadeUp 0.5s ease 0.75s forwards;
+      }
+      .tool-card:nth-child(2) {
+        background: linear-gradient(135deg, #3a6003, var(--green));
+        animation: fadeUp 0.5s ease 0.85s forwards;
+      }
+      .tool-card:nth-child(3) {
+        background: linear-gradient(135deg, #7a3459, var(--purple));
+        animation: fadeUp 0.5s ease 0.95s forwards;
+      }
 
-    .tool-card::before {
-      content: '';
-      position: absolute;
-      top: -30px; right: -30px;
-      width: 100px; height: 100px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 50%;
-    }
+      .tool-card::before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 50%;
+      }
 
-    .tool-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
-    }
+      .tool-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+      }
 
-    .tool-icon {
-      width: 48px; height: 48px;
-      background: rgba(255,255,255,0.18);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      .tool-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .tool-icon svg { width: 24px; height: 24px; fill: #fff; }
+      .tool-icon svg {
+        width: 24px;
+        height: 24px;
+        fill: #fff;
+      }
 
-    .tool-name {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: #fff;
-      letter-spacing: -0.01em;
-    }
+      .tool-name {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 0.95rem;
+        color: #fff;
+        letter-spacing: -0.01em;
+      }
 
-    .tool-desc {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.78);
-      line-height: 1.5;
-      font-weight: 400;
-    }
+      .tool-desc {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.5;
+        font-weight: 400;
+      }
 
-    .tool-arrow {
-      margin-top: 4px;
-      width: 32px; height: 32px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
+      .tool-arrow {
+        margin-top: 4px;
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+      }
 
-    .tool-card:hover .tool-arrow {
-      background: rgba(255,255,255,0.35);
-      transform: translateX(3px);
-    }
+      .tool-card:hover .tool-arrow {
+        background: rgba(255, 255, 255, 0.35);
+        transform: translateX(3px);
+      }
 
-    .tool-arrow svg { width: 14px; height: 14px; stroke: #fff; fill: none; }
+      .tool-arrow svg {
+        width: 14px;
+        height: 14px;
+        stroke: #fff;
+        fill: none;
+      }
 
-    /* ── FOOTER ── */
-    footer {
-      max-width: 860px;
-      margin: 48px auto 0;
-      padding: 24px 32px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid #e2e2e2;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+      /* ── FOOTER ── */
+      footer {
+        max-width: 860px;
+        margin: 48px auto 0;
+        padding: 24px 32px 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #e2e2e2;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
 
-    .footer-note {
-      font-size: 0.78rem;
-      color: #999;
-    }
+      .footer-note {
+        font-size: 0.78rem;
+        color: #999;
+      }
 
-    .footer-note a {
-      color: var(--blue);
-      text-decoration: none;
-      font-weight: 500;
-    }
+      .footer-note a {
+        color: var(--blue);
+        text-decoration: none;
+        font-weight: 500;
+      }
 
-    .footer-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue), var(--green));
-    }
+      .footer-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-</head>
-<body>
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-stripe"></div>
 
-  <div class="top-stripe"></div>
+    <header>
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"
+            fill="white"
+          />
+          <path d="M8 8h2v8H8V8zm6 0h2v8h-2V8z" fill="white" opacity="0.6" />
+          <circle cx="12" cy="12" r="3" fill="white" opacity="0.3" />
+          <path
+            d="M7 10l2 2-2 2M17 10l-2 2 2 2"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="logo-text">Lingro<span>Learning</span></div>
+      <div class="pilot-badge">✦ AI Pilot Program</div>
+    </header>
 
-  <header>
-    <div class="logo-mark">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="white"/>
-        <path d="M8 8h2v8H8V8zm6 0h2v8h-2V8z" fill="white" opacity="0.6"/>
-        <circle cx="12" cy="12" r="3" fill="white" opacity="0.3"/>
-        <path d="M7 10l2 2-2 2M17 10l-2 2 2 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <div class="logo-text">Lingro<span>Learning</span></div>
-    <div class="pilot-badge">✦ AI Pilot Program</div>
-  </header>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="chapter-eyebrow">
+          Contraseña · Units 15 &amp; 16 · Spanish Language Practice
+        </div>
+        <h1>Welcome to Your<br /><em>AI Conversation</em> Practice</h1>
+        <p class="hero-sub">
+          Three interactive tools designed to help you speak, listen, and think
+          in Spanish — right here, right now.
+        </p>
+      </div>
+    </section>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="chapter-eyebrow">Contraseña · Units 15 &amp; 16 · Spanish Language Practice</div>
-      <h1>Welcome to Your<br /><em>AI Conversation</em> Practice</h1>
-      <p class="hero-sub">Three interactive tools designed to help you speak, listen, and think in Spanish — right here, right now.</p>
-    </div>
-  </section>
+    <!-- WELCOME -->
+    <section class="welcome-section">
+      <div class="welcome-card">
+        <div class="welcome-label">✦ Welcome Message</div>
+        <h2>Hi! You're one of the first. 👋</h2>
+        <p>
+          You're one of the first students to try
+          <strong>LingroLearning's new AI Conversation Bots</strong>. These bots
+          give you opportunities to practice speaking and listening and are
+          focused on what you're learning in each chapter.
+        </p>
+        <br />
+        <p>We really appreciate you taking some time to pilot our new bots.</p>
+        <br />
+        <p>
+          <strong>Don't worry about making mistakes</strong> – you can speak
+          freely and try new things!
+        </p>
+        <br />
+        <p
+          style="
+            font-family: &quot;Montserrat&quot;, sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+          "
+        >
+          A few important reminders before you get started:
+        </p>
+        <ol
+          style="
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          "
+        >
+          <li style="display: flex; gap: 12px; align-items: flex-start">
+            <span
+              style="
+                min-width: 24px;
+                height: 24px;
+                background: var(--blue);
+                color: #fff;
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 0.72rem;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1px;
+              "
+              >1</span
+            >
+            <span style="font-size: 0.92rem; color: #555; line-height: 1.6"
+              ><strong style="color: var(--charcoal)">This is a pilot</strong> –
+              and not a final product. Your use of these bots and your feedback
+              will help us improve these tools!</span
+            >
+          </li>
+          <li style="display: flex; gap: 12px; align-items: flex-start">
+            <span
+              style="
+                min-width: 24px;
+                height: 24px;
+                background: var(--green);
+                color: #fff;
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 0.72rem;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1px;
+              "
+              >2</span
+            >
+            <span style="font-size: 0.92rem; color: #555; line-height: 1.6"
+              ><strong style="color: var(--charcoal)"
+                >AI can be a helpful technology</strong
+              >
+              – but it's not perfect. Be sure to check in if the language feels
+              off or refresh the conversation if the conversation is not running
+              smoothly.</span
+            >
+          </li>
+          <li style="display: flex; gap: 12px; align-items: flex-start">
+            <span
+              style="
+                min-width: 24px;
+                height: 24px;
+                background: var(--purple);
+                color: #fff;
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 0.72rem;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1px;
+              "
+              >3</span
+            >
+            <span style="font-size: 0.92rem; color: #555; line-height: 1.6"
+              >After each conversation, you'll have a chance to
+              <strong style="color: var(--charcoal)"
+                >provide in-the-moment feedback</strong
+              >.</span
+            >
+          </li>
+          <li style="display: flex; gap: 12px; align-items: flex-start">
+            <span
+              style="
+                min-width: 24px;
+                height: 24px;
+                background: var(--orange);
+                color: #fff;
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 0.72rem;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1px;
+              "
+              >4</span
+            >
+            <span style="font-size: 0.92rem; color: #555; line-height: 1.6"
+              >There is a
+              <strong style="color: var(--charcoal)"
+                >"Report Issue" button</strong
+              >
+              in each bot if you run into any technical issues or issues with
+              the content of the bot.</span
+            >
+          </li>
+          <li style="display: flex; gap: 12px; align-items: flex-start">
+            <span
+              style="
+                min-width: 24px;
+                height: 24px;
+                background: var(--cinnabar);
+                color: #fff;
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 0.72rem;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1px;
+              "
+              >5</span
+            >
+            <span style="font-size: 0.92rem; color: #555; line-height: 1.6"
+              >If you need any further help, or have any ideas, please email our
+              team lead at
+              <a
+                href="mailto:patrick@lingrolearning.com"
+                style="
+                  color: var(--blue);
+                  font-weight: 600;
+                  text-decoration: none;
+                "
+                >patrick@lingrolearning.com</a
+              >.</span
+            >
+          </li>
+          <li style="display: flex; gap: 12px; align-items: flex-start">
+            <span
+              style="
+                min-width: 24px;
+                height: 24px;
+                background: var(--charcoal);
+                color: #fff;
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-weight: 700;
+                font-size: 0.72rem;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1px;
+              "
+              >6</span
+            >
+            <span style="font-size: 0.92rem; color: #555; line-height: 1.6"
+              >We will follow up at the end of the project where you can enter
+              to win a
+              <strong style="color: var(--green)">$20 Amazon gift card</strong>.
+              🎁</span
+            >
+          </li>
+        </ol>
+      </div>
+    </section>
 
-  <!-- WELCOME -->
-  <section class="welcome-section">
-    <div class="welcome-card">
-      <div class="welcome-label">✦ Welcome Message</div>
-      <h2>Hi! You're one of the first. 👋</h2>
-      <p>
-        You're one of the first students to try <strong>LingroLearning's new AI Conversation Bots</strong>. These bots give you opportunities to practice speaking and listening and are focused on what you're learning in each chapter.
+    <!-- OUTCOMES -->
+    <section class="outcomes-section">
+      <div class="section-header">
+        <h3>Learning Outcomes</h3>
+        <div class="line"></div>
+      </div>
+      <div style="margin-bottom: 12px">
+        <div
+          style="
+            font-family: &quot;Montserrat&quot;, sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 10px;
+            padding-left: 4px;
+          "
+        >
+          Unit 15
+        </div>
+        <div
+          class="outcomes-grid"
+          style="grid-template-columns: repeat(3, 1fr); margin-bottom: 14px"
+        >
+          <div class="outcome-card">
+            <div class="outcome-num" style="background: var(--blue)">15.1</div>
+            <div class="outcome-text">
+              Discuss literature and literary works
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-num" style="background: var(--blue)">15.2</div>
+            <div class="outcome-text">
+              Describe people, objects, and situations
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-num" style="background: var(--blue)">15.3</div>
+            <div class="outcome-text">
+              Describe actions that have or had happened in the past
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            font-family: &quot;Montserrat&quot;, sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 10px;
+            padding-left: 4px;
+          "
+        >
+          Unit 16
+        </div>
+        <div
+          class="outcomes-grid"
+          style="grid-template-columns: repeat(3, 1fr)"
+        >
+          <div class="outcome-card">
+            <div
+              class="outcome-num"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--green) 50%,
+                  var(--purple) 50%
+                );
+              "
+            >
+              16.1
+            </div>
+            <div class="outcome-text">Talk about personal relationships</div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-num" style="background: var(--green)">16.2</div>
+            <div class="outcome-text">Talk about what you will do</div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-num" style="background: var(--purple)">
+              16.3
+            </div>
+            <div class="outcome-text">
+              Talk about things that could happen in the future
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="tools-section">
+      <div class="section-header" style="margin-top: 40px">
+        <h3>Conversation Tools</h3>
+        <div class="line"></div>
+      </div>
+      <p style="font-size: 0.88rem; color: #777; margin-bottom: 16px">
+        Click each of the links below to start your conversations.
       </p>
-      <br />
-      <p>We really appreciate you taking some time to pilot our new bots.</p>
-      <br />
-      <p><strong>Don't worry about making mistakes</strong> – you can speak freely and try new things!</p>
-      <br />
-      <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--charcoal);margin-bottom:12px;">A few important reminders before you get started:</p>
-      <ol style="list-style:none;display:flex;flex-direction:column;gap:10px;">
-        <li style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="min-width:24px;height:24px;background:var(--blue);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.72rem;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-top:1px;">1</span>
-          <span style="font-size:0.92rem;color:#555;line-height:1.6;"><strong style="color:var(--charcoal);">This is a pilot</strong> – and not a final product. Your use of these bots and your feedback will help us improve these tools!</span>
-        </li>
-        <li style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="min-width:24px;height:24px;background:var(--green);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.72rem;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-top:1px;">2</span>
-          <span style="font-size:0.92rem;color:#555;line-height:1.6;"><strong style="color:var(--charcoal);">AI can be a helpful technology</strong> – but it's not perfect. Be sure to check in if the language feels off or refresh the conversation if the conversation is not running smoothly.</span>
-        </li>
-        <li style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="min-width:24px;height:24px;background:var(--purple);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.72rem;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-top:1px;">3</span>
-          <span style="font-size:0.92rem;color:#555;line-height:1.6;">After each conversation, you'll have a chance to <strong style="color:var(--charcoal);">provide in-the-moment feedback</strong>.</span>
-        </li>
-        <li style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="min-width:24px;height:24px;background:var(--orange);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.72rem;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-top:1px;">4</span>
-          <span style="font-size:0.92rem;color:#555;line-height:1.6;">There is a <strong style="color:var(--charcoal);">"Report Issue" button</strong> in each bot if you run into any technical issues or issues with the content of the bot.</span>
-        </li>
-        <li style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="min-width:24px;height:24px;background:var(--cinnabar);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.72rem;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-top:1px;">5</span>
-          <span style="font-size:0.92rem;color:#555;line-height:1.6;">If you need any further help, or have any ideas, please email our team lead at <a href="mailto:patrick@lingrolearning.com" style="color:var(--blue);font-weight:600;text-decoration:none;">patrick@lingrolearning.com</a>.</span>
-        </li>
-        <li style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="min-width:24px;height:24px;background:var(--charcoal);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.72rem;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-top:1px;">6</span>
-          <span style="font-size:0.92rem;color:#555;line-height:1.6;">We will follow up at the end of the project where you can enter to win a <strong style="color:var(--green);">$20 Amazon gift card</strong>. 🎁</span>
-        </li>
-      </ol>
-    </div>
-  </section>
+      <div class="tools-grid">
+        <a
+          href="https://lingro.retool.com/embedded/public/12f80a95-93a8-436b-91f6-46856f4961ca/assessmentv2?ep=361b42e5-fe29-4381-a9d9-d566cbbf4d50"
+          class="tool-card"
+        >
+          <div class="tool-icon">
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+            >
+              <path
+                d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
+              />
+            </svg>
+          </div>
+          <div
+            style="
+              font-family: &quot;Montserrat&quot;, sans-serif;
+              font-size: 0.6rem;
+              font-weight: 600;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.45);
+              margin-bottom: 2px;
+            "
+          >
+            convobot · unit 15
+          </div>
+          <div class="tool-name">Perspectivas distintas</div>
+          <div class="tool-desc">
+            Recommend a book whose story has changed the way you see the world.
+          </div>
+          <div class="tool-arrow">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
 
-  <!-- OUTCOMES -->
-  <section class="outcomes-section">
-    <div class="section-header">
-      <h3>Learning Outcomes</h3>
-      <div class="line"></div>
-    </div>
-    <div style="margin-bottom:12px;">
-      <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;padding-left:4px;">Unit 15</div>
-      <div class="outcomes-grid" style="grid-template-columns: repeat(3, 1fr);margin-bottom:14px;">
-        <div class="outcome-card">
-          <div class="outcome-num" style="background:var(--blue);">15.1</div>
-          <div class="outcome-text">Discuss literature and literary works</div>
-        </div>
-        <div class="outcome-card">
-          <div class="outcome-num" style="background:var(--blue);">15.2</div>
-          <div class="outcome-text">Describe people, objects, and situations</div>
-        </div>
-        <div class="outcome-card">
-          <div class="outcome-num" style="background:var(--blue);">15.3</div>
-          <div class="outcome-text">Describe actions that have or had happened in the past</div>
-        </div>
+        <a
+          href="https://lingro.retool.com/embedded/public/12f80a95-93a8-436b-91f6-46856f4961ca/assessmentv2?ep=477792ab-4eea-48b3-958c-3a1cb6657b5d"
+          class="tool-card"
+        >
+          <div class="tool-icon">
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+            >
+              <path
+                d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"
+              />
+            </svg>
+          </div>
+          <div
+            style="
+              font-family: &quot;Montserrat&quot;, sans-serif;
+              font-size: 0.6rem;
+              font-weight: 600;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.45);
+              margin-bottom: 2px;
+            "
+          >
+            convobot · unit 16
+          </div>
+          <div class="tool-name">Vamos a cenar</div>
+          <div class="tool-desc">
+            Talk with a friend about what you will do this weekend.
+          </div>
+          <div class="tool-arrow">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+
+        <a
+          href="https://lingro.retool.com/embedded/public/12f80a95-93a8-436b-91f6-46856f4961ca/assessmentv2?ep=74818fc9-f77b-443f-a7ad-a8eba1d0a06c"
+          class="tool-card"
+        >
+          <div class="tool-icon">
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+            >
+              <path
+                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"
+              />
+            </svg>
+          </div>
+          <div
+            style="
+              font-family: &quot;Montserrat&quot;, sans-serif;
+              font-size: 0.6rem;
+              font-weight: 600;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.45);
+              margin-bottom: 2px;
+            "
+          >
+            convobot · unit 16
+          </div>
+          <div class="tool-name">¿Qué harías?</div>
+          <div class="tool-desc">
+            A friend needs some advice about their relationship. Talk with them
+            about what you would do.
+          </div>
+          <div class="tool-arrow">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
       </div>
-      <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:10px;padding-left:4px;">Unit 16</div>
-      <div class="outcomes-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="outcome-card">
-          <div class="outcome-num" style="background:linear-gradient(135deg, var(--green) 50%, var(--purple) 50%);">16.1</div>
-          <div class="outcome-text">Talk about personal relationships</div>
-        </div>
-        <div class="outcome-card">
-          <div class="outcome-num" style="background:var(--green);">16.2</div>
-          <div class="outcome-text">Talk about what you will do</div>
-        </div>
-        <div class="outcome-card">
-          <div class="outcome-num" style="background:var(--purple);">16.3</div>
-          <div class="outcome-text">Talk about things that could happen in the future</div>
-        </div>
+    </section>
+
+    <footer>
+      <div class="footer-note">
+        Questions or feedback?
+        <a href="mailto:patrick@lingrolearning.com"
+          >patrick@lingrolearning.com</a
+        >
       </div>
-    </div>
-  </section>
-
-  <!-- TOOLS -->
-  <section class="tools-section">
-    <div class="section-header" style="margin-top: 40px;">
-      <h3>Conversation Tools</h3>
-      <div class="line"></div>
-    </div>
-    <p style="font-size:0.88rem;color:#777;margin-bottom:16px;">Click each of the links below to start your conversations.</p>
-    <div class="tools-grid">
-
-      <a href="#" class="tool-card">
-        <div class="tool-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>
-        </div>
-        <div style="font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:2px;">convobot · unit 15</div>
-        <div class="tool-name">Perspectivas distintas</div>
-        <div class="tool-desc">Recommend a book whose story has changed the way you see the world.</div>
-        <div class="tool-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
-
-      <a href="#" class="tool-card">
-        <div class="tool-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-        </div>
-        <div style="font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:2px;">convobot · unit 16</div>
-        <div class="tool-name">Vamos a cenar</div>
-        <div class="tool-desc">Talk with a friend about what you will do this weekend.</div>
-        <div class="tool-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
-
-      <a href="#" class="tool-card">
-        <div class="tool-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-        </div>
-        <div style="font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:2px;">convobot · unit 16</div>
-        <div class="tool-name">¿Qué harías?</div>
-        <div class="tool-desc">A friend needs some advice about their relationship. Talk with them about what you would do.</div>
-        <div class="tool-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-          <footer>
-    <div class="footer-note">Questions or feedback? <a href="mailto:patrick@lingrolearning.com">patrick@lingrolearning.com</a></div>
-    <div class="footer-dot"></div>
-    <div class="footer-note">&copy; 2026 LingroLearning &middot; AI Pilot Program</div>
-  </footer>
-
-</body>
+      <div class="footer-dot"></div>
+      <div class="footer-note">
+        &copy; 2026 LingroLearning &middot; AI Pilot Program
+      </div>
+    </footer>
+  </body>
 </html>
