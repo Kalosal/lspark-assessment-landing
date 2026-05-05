@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reserve Your Spot — Lingro Spanish Summer Camp 2026</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --blue: #0f75b8;
+        --blue-dark: #0a5a8e;
+        --blue-light: #e8f4fc;
+        --green: #4d8004;
+        --green-dark: #3a6003;
+        --green-light: #eef5e0;
+        --gold: #f5c842;
+        --dark: #1a1a1a;
+        --mid: #444;
+        --muted: #777;
+        --white: #fff;
+        --warm: #fafaf7;
+        --border: #e2e2de;
+        --error: #d94040;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: var(--warm);
+        color: var(--dark);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* HEADER */
+      header {
+        background: var(--white);
+        padding: 14px 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 3px solid var(--blue);
+        box-shadow: 0 2px 10px rgba(15, 117, 184, 0.07);
+      }
+      header img {
+        height: 38px;
+      }
+      .header-badge {
+        background: var(--green);
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.72rem;
+        padding: 5px 14px;
+        border-radius: 20px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      /* LAYOUT */
+      .page-wrap {
+        max-width: 740px;
+        margin: 48px auto 64px;
+        padding: 0 24px;
+      }
+
+      /* INTRO */
+      .intro {
+        text-align: center;
+        margin-bottom: 36px;
+      }
+      .intro-eyebrow {
+        display: inline-block;
+        background: var(--blue-light);
+        color: var(--blue);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        padding: 5px 16px;
+        border-radius: 20px;
+        margin-bottom: 14px;
+      }
+      .intro h1 {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 900;
+        line-height: 1.15;
+        color: var(--dark);
+        margin-bottom: 10px;
+      }
+      .intro h1 span {
+        color: var(--blue);
+      }
+      .intro p {
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      /* CARD */
+      .form-card {
+        background: var(--white);
+        border-radius: 18px;
+        border: 1.5px solid var(--border);
+        box-shadow: 0 4px 28px rgba(15, 117, 184, 0.08);
+        overflow: hidden;
+      }
+
+      /* PROGRESS */
+      .progress-bar {
+        height: 4px;
+        background: #e8e8e4;
+        position: relative;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--blue), var(--green));
+        border-radius: 0 4px 4px 0;
+        transition: width 0.4s ease;
+        width: 33%;
+      }
+
+      /* STEPS */
+      .step {
+        display: none;
+        padding: 36px 40px 40px;
+      }
+      .step.active {
+        display: block;
+      }
+
+      .step-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .step h2 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 28px;
+        line-height: 1.3;
+      }
+
+      /* FORM FIELDS */
+      .field {
+        margin-bottom: 20px;
+      }
+      .field label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--mid);
+        margin-bottom: 6px;
+        letter-spacing: 0.02em;
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.9rem;
+        color: var(--dark);
+        background: var(--white);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+      .field input:focus,
+      .field select:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px rgba(15, 117, 184, 0.1);
+      }
+      .field.error input,
+      .field.error select {
+        border-color: var(--error);
+      }
+      .field .err-msg {
+        font-size: 0.75rem;
+        color: var(--error);
+        margin-top: 5px;
+        display: none;
+      }
+      .field.error .err-msg {
+        display: block;
+      }
+      .select-wrap {
+        position: relative;
+      }
+      .select-wrap::after {
+        content: "▾";
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted);
+        pointer-events: none;
+        font-size: 0.85rem;
+      }
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      /* LEVEL OPTIONS */
+      .level-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .level-opt {
+        display: flex;
+        flex-direction: column;
+        border: 1.5px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 18px;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        position: relative;
+      }
+      .level-opt:hover {
+        border-color: var(--blue);
+        background: var(--blue-light);
+      }
+      .level-opt.selected {
+        border-color: var(--blue);
+        background: var(--blue-light);
+      }
+      .level-opt input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .level-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 0;
+      }
+      .level-row strong {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--dark);
+      }
+      .level-radio {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--border);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .level-opt.selected .level-radio {
+        border-color: var(--blue);
+        background: var(--blue);
+      }
+      .level-opt.selected .level-radio::after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #fff;
+      }
+      .level-desc {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+
+      /* PURCHASE OPTIONS */
+      .purchase-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .purchase-opt {
+        border: 1.5px solid var(--border);
+        border-radius: 14px;
+        padding: 20px 18px;
+        cursor: pointer;
+        text-align: center;
+        transition:
+          border-color 0.2s,
+          background 0.2s,
+          transform 0.15s;
+        position: relative;
+      }
+      .purchase-opt:hover {
+        border-color: var(--blue);
+        transform: translateY(-2px);
+      }
+      .purchase-opt.selected {
+        border-color: var(--green);
+        background: var(--green-light);
+      }
+      .purchase-opt input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .purchase-badge {
+        position: absolute;
+        top: -11px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--green);
+        color: #fff;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 3px 12px;
+        border-radius: 12px;
+        white-space: nowrap;
+      }
+      .purchase-title {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--mid);
+        margin-bottom: 8px;
+      }
+      .purchase-price {
+        font-size: 2rem;
+        font-weight: 900;
+        color: var(--blue);
+        line-height: 1;
+      }
+      .purchase-opt.selected .purchase-price {
+        color: var(--green-dark);
+      }
+      .purchase-note {
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-top: 5px;
+        line-height: 1.4;
+      }
+      .module-select-wrap {
+        margin-top: 16px;
+        display: none;
+      }
+      .module-select-wrap.visible {
+        display: block;
+      }
+      .module-select-wrap label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--mid);
+        margin-bottom: 8px;
+        display: block;
+      }
+      .module-checks {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .module-check {
+        display: flex;
+        flex-direction: column;
+        padding: 14px 16px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        position: relative;
+      }
+      .module-check:hover {
+        border-color: var(--blue);
+        background: var(--blue-light);
+      }
+      .module-check.selected {
+        border-color: var(--blue);
+        background: var(--blue-light);
+      }
+      .module-check input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .module-radio {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid var(--border);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .module-check.selected .module-radio {
+        border-color: var(--blue);
+        background: var(--blue);
+      }
+      .module-check.selected .module-radio::after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #fff;
+      }
+      .module-check-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--dark);
+      }
+      .module-check-sub {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+      .module-check-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .module-top-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* STRIPE */
+      .stripe-section {
+        margin-top: 4px;
+      }
+      .stripe-field-label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--mid);
+        margin-bottom: 6px;
+        letter-spacing: 0.02em;
+        display: block;
+      }
+      #card-element {
+        padding: 13px 16px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        background: var(--white);
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      #card-element.focused {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px rgba(15, 117, 184, 0.1);
+      }
+      #card-errors {
+        font-size: 0.75rem;
+        color: var(--error);
+        margin-top: 6px;
+        min-height: 18px;
+      }
+      .order-summary {
+        background: var(--warm);
+        border: 1.5px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 18px;
+        margin: 20px 0;
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+        padding: 4px 0;
+        color: var(--mid);
+      }
+      .summary-row.total {
+        font-weight: 800;
+        font-size: 1rem;
+        color: var(--dark);
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+        padding-top: 12px;
+      }
+      .stripe-note {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+      .stripe-note svg {
+        flex-shrink: 0;
+      }
+
+      /* BUTTONS */
+      .btn-row {
+        display: flex;
+        gap: 12px;
+        margin-top: 28px;
+      }
+      .btn-back {
+        background: none;
+        border: 1.5px solid var(--border);
+        color: var(--muted);
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        font-size: 0.88rem;
+        padding: 13px 22px;
+        border-radius: 40px;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .btn-back:hover {
+        border-color: var(--mid);
+        color: var(--mid);
+      }
+      .btn-next {
+        flex: 1;
+        background: var(--blue);
+        color: #fff;
+        border: none;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 0.95rem;
+        padding: 14px 28px;
+        border-radius: 40px;
+        cursor: pointer;
+        box-shadow: 0 4px 18px rgba(15, 117, 184, 0.28);
+        transition:
+          background 0.2s,
+          transform 0.15s;
+        letter-spacing: 0.02em;
+      }
+      .btn-next:hover {
+        background: var(--blue-dark);
+        transform: translateY(-1px);
+      }
+      .btn-next:disabled {
+        background: #a0b8cc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* SUCCESS */
+      .success-screen {
+        display: none;
+        text-align: center;
+        padding: 56px 40px;
+      }
+      .success-screen.active {
+        display: block;
+      }
+      .success-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+      }
+      @keyframes popIn {
+        from {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .success-screen h2 {
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: var(--dark);
+        margin-bottom: 12px;
+      }
+      .success-screen p {
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .success-main {
+        margin-bottom: 16px !important;
+      }
+      .success-detail {
+        font-size: 0.88rem;
+        color: var(--mid);
+        line-height: 1.7;
+      }
+      .success-detail a {
+        color: var(--blue);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .success-detail a:hover {
+        text-decoration: underline;
+      }
+      .success-divider {
+        width: 48px;
+        height: 2px;
+        background: var(--border);
+        margin: 24px auto;
+      }
+      .success-cert {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        background: var(--green-light);
+        border: 1.5px solid rgba(77, 128, 4, 0.2);
+        border-radius: 12px;
+        padding: 16px 18px;
+        text-align: left;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .success-cert span {
+        font-size: 1.4rem;
+        flex-shrink: 0;
+      }
+      .success-cert p {
+        font-size: 0.82rem;
+        color: var(--mid);
+        line-height: 1.6;
+        margin: 0 !important;
+        max-width: none;
+      }
+      .success-cert strong {
+        color: var(--green-dark);
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .step.active {
+        animation: fadeUp 0.35s ease both;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 600px) {
+        header {
+          padding: 12px 20px;
+        }
+        .page-wrap {
+          margin: 32px auto 48px;
+        }
+        .step {
+          padding: 28px 24px 32px;
+        }
+        .field-row {
+          grid-template-columns: 1fr;
+        }
+        .purchase-options {
+          grid-template-columns: 1fr;
+        }
+        .btn-row {
+          flex-direction: column;
+        }
+        .btn-back {
+          order: 2;
+        }
+        .module-check-label {
+          flex: 1;
+        }
+        .module-check {
+          flex-wrap: wrap;
+        }
+        .module-check-sub {
+          display: block;
+          width: 100%;
+          padding-left: 28px;
+          margin-top: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img
+        src="data:image/jpeg;base64,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"
+        alt="LingroLearning"
+      />
+      <span class="header-badge">Summer Camp 2026</span>
+    </header>
+
+    <div class="page-wrap">
+      <div class="intro">
+        <div class="intro-eyebrow">Enrollment</div>
+        <h1>Reserve Your <span>Spot</span></h1>
+        <p>
+          Just a few quick questions and you're in. Takes less than 2 minutes.
+        </p>
+      </div>
+
+      <div class="form-card">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress"></div>
+        </div>
+
+        <!-- STEP 1: About You -->
+        <div class="step active" id="step1">
+          <p class="step-label">Step 1 of 3</p>
+          <h2>Tell us about yourself.</h2>
+
+          <div class="field-row">
+            <div class="field" id="f-name">
+              <label>Full Name</label>
+              <input
+                type="text"
+                id="full-name"
+                placeholder="Jane Smith"
+                autocomplete="name"
+              />
+              <div class="err-msg">Please enter your full name.</div>
+            </div>
+            <div class="field" id="f-email">
+              <label>Email Address</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="jane@university.edu"
+                autocomplete="email"
+              />
+              <div class="err-msg">Please enter a valid email address.</div>
+            </div>
+          </div>
+
+          <div class="field" id="f-state">
+            <label>State</label>
+            <div class="select-wrap">
+              <select id="state">
+                <option value="" disabled selected>Select your state…</option>
+                <option value="Alabama">Alabama</option>
+                <option value="Alaska">Alaska</option>
+                <option value="Arizona">Arizona</option>
+                <option value="Arkansas">Arkansas</option>
+                <option value="California">California</option>
+                <option value="Colorado">Colorado</option>
+                <option value="Connecticut">Connecticut</option>
+                <option value="Delaware">Delaware</option>
+                <option value="Florida">Florida</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Hawaii">Hawaii</option>
+                <option value="Idaho">Idaho</option>
+                <option value="Illinois">Illinois</option>
+                <option value="Indiana">Indiana</option>
+                <option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option>
+                <option value="Kentucky">Kentucky</option>
+                <option value="Louisiana">Louisiana</option>
+                <option value="Maine">Maine</option>
+                <option value="Maryland">Maryland</option>
+                <option value="Massachusetts">Massachusetts</option>
+                <option value="Michigan">Michigan</option>
+                <option value="Minnesota">Minnesota</option>
+                <option value="Mississippi">Mississippi</option>
+                <option value="Missouri">Missouri</option>
+                <option value="Montana">Montana</option>
+                <option value="Nebraska">Nebraska</option>
+                <option value="Nevada">Nevada</option>
+                <option value="New Hampshire">New Hampshire</option>
+                <option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option>
+                <option value="New York">New York</option>
+                <option value="North Carolina">North Carolina</option>
+                <option value="North Dakota">North Dakota</option>
+                <option value="Ohio">Ohio</option>
+                <option value="Oklahoma">Oklahoma</option>
+                <option value="Oregon">Oregon</option>
+                <option value="Pennsylvania">Pennsylvania</option>
+                <option value="Rhode Island">Rhode Island</option>
+                <option value="South Carolina">South Carolina</option>
+                <option value="South Dakota">South Dakota</option>
+                <option value="Tennessee">Tennessee</option>
+                <option value="Texas">Texas</option>
+                <option value="Utah">Utah</option>
+                <option value="Vermont">Vermont</option>
+                <option value="Virginia">Virginia</option>
+                <option value="Washington">Washington</option>
+                <option value="West Virginia">West Virginia</option>
+                <option value="Wisconsin">Wisconsin</option>
+                <option value="Wyoming">Wyoming</option>
+                <option value="Washington D.C.">Washington D.C.</option>
+                <option value="Outside the US">Outside the US</option>
+              </select>
+            </div>
+            <div class="err-msg">Please select your state.</div>
+          </div>
+
+          <div class="field" id="f-college">
+            <label>College / University Currently Attending</label>
+            <input
+              type="text"
+              id="college"
+              placeholder="e.g. University of Michigan"
+              autocomplete="organization"
+            />
+            <div class="err-msg">Please enter your college or university.</div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-next" onclick="goStep(2)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Spanish Level + Purchase -->
+        <div class="step" id="step2">
+          <p class="step-label">Step 2 of 3</p>
+          <h2>Your Spanish &amp; your plan.</h2>
+
+          <div class="field" id="f-level">
+            <label>How would you describe your level of Spanish?</label>
+            <div class="level-options">
+              <label
+                class="level-opt"
+                onclick="selectLevel(this, 'beginner_none')"
+              >
+                <input type="radio" name="level" value="beginner_none" />
+                <div class="level-row">
+                  <div class="level-radio"></div>
+                  <strong>No experience</strong>
+                </div>
+                <p class="level-desc">
+                  I have never studied or been exposed to Spanish.
+                </p>
+              </label>
+              <label class="level-opt" onclick="selectLevel(this, 'beginner')">
+                <input type="radio" name="level" value="beginner" />
+                <div class="level-row">
+                  <div class="level-radio"></div>
+                  <strong>Beginner</strong>
+                </div>
+                <p class="level-desc">
+                  Some basic exposure (a class or two, or casual learning) but
+                  limited ability to speak or understand Spanish.
+                </p>
+              </label>
+              <label
+                class="level-opt"
+                onclick="selectLevel(this, 'intermediate')"
+              >
+                <input type="radio" name="level" value="intermediate" />
+                <div class="level-row">
+                  <div class="level-radio"></div>
+                  <strong>Intermediate</strong>
+                </div>
+                <p class="level-desc">
+                  Studied Spanish for a few years and can hold basic
+                  conversations, but not fully fluent.
+                </p>
+              </label>
+              <label class="level-opt" onclick="selectLevel(this, 'advanced')">
+                <input type="radio" name="level" value="advanced" />
+                <div class="level-row">
+                  <div class="level-radio"></div>
+                  <strong>Advanced / Fluent</strong>
+                </div>
+                <p class="level-desc">
+                  Highly proficient or fluent, through extensive study,
+                  immersion, or growing up in a Spanish-speaking environment.
+                </p>
+              </label>
+            </div>
+            <div class="err-msg" id="level-err" style="margin-top: 8px">
+              Please select your Spanish level.
+            </div>
+          </div>
+
+          <div class="field" id="f-purchase" style="margin-top: 28px">
+            <label>Choose your purchase option</label>
+            <div class="purchase-options">
+              <label
+                class="purchase-opt"
+                onclick="selectPurchase(this, 'single')"
+              >
+                <input type="radio" name="purchase" value="single" />
+                <div class="purchase-title">Single Module</div>
+                <div class="purchase-price">$50</div>
+                <div class="purchase-note">Pick any one week</div>
+              </label>
+              <label
+                class="purchase-opt"
+                onclick="selectPurchase(this, 'all4')"
+              >
+                <input type="radio" name="purchase" value="all4" />
+                <div class="purchase-badge">Best Value</div>
+                <div class="purchase-title">All 4 Modules</div>
+                <div class="purchase-price">$150</div>
+                <div class="purchase-note">Save $50 — full summer</div>
+              </label>
+            </div>
+
+            <!-- Module picker (shown when Single is selected) -->
+            <div class="module-select-wrap" id="module-picker">
+              <label>Which module would you like?</label>
+              <div class="module-checks">
+                <label class="module-check" onclick="selectModule(this)">
+                  <input type="radio" name="module" value="week1" />
+                  <div class="module-top-row">
+                    <div class="module-radio"></div>
+                    <span class="module-check-label"
+                      >⚽ Week 1 — El Fútbol Mundial</span
+                    >
+                  </div>
+                  <span class="module-check-sub">Jun 15–21</span>
+                </label>
+                <label class="module-check" onclick="selectModule(this)">
+                  <input type="radio" name="module" value="week2" />
+                  <div class="module-top-row">
+                    <div class="module-radio"></div>
+                    <span class="module-check-label"
+                      >🎵 Week 2 — Bad Bunny &amp; Music</span
+                    >
+                  </div>
+                  <span class="module-check-sub">Jun 22–28</span>
+                </label>
+                <label class="module-check" onclick="selectModule(this)">
+                  <input type="radio" name="module" value="week3" />
+                  <div class="module-top-row">
+                    <div class="module-radio"></div>
+                    <span class="module-check-label"
+                      >📱 Week 3 — Social Media &amp; Digital Culture</span
+                    >
+                  </div>
+                  <span class="module-check-sub">Jun 29–Jul 5</span>
+                </label>
+                <label class="module-check" onclick="selectModule(this)">
+                  <input type="radio" name="module" value="week4" />
+                  <div class="module-top-row">
+                    <div class="module-radio"></div>
+                    <span class="module-check-label"
+                      >🍳 Week 4 — Food Culture</span
+                    >
+                  </div>
+                  <span class="module-check-sub">Jul 6–12</span>
+                </label>
+              </div>
+            </div>
+            <div class="err-msg" id="purchase-err" style="margin-top: 8px">
+              Please select a purchase option.
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-back" onclick="goStep(1)">← Back</button>
+            <button class="btn-next" onclick="goStep(3)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Payment -->
+        <div class="step" id="step3">
+          <p class="step-label">Step 3 of 3</p>
+          <h2>Complete your enrollment.</h2>
+
+          <div class="order-summary" id="order-summary">
+            <div class="summary-row">
+              <span id="summary-item">—</span><span id="summary-price">—</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total due today</span><span id="summary-total">—</span>
+            </div>
+          </div>
+
+          <div class="stripe-section">
+            <span class="stripe-field-label">Card Details</span>
+            <div id="card-element"></div>
+            <div id="card-errors"></div>
+          </div>
+
+          <div class="stripe-note" style="margin-top: 14px">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            Secured by Stripe. We never store your card details.
+          </div>
+
+          <button
+            class="btn-next"
+            id="pay-btn"
+            onclick="handlePayment()"
+            style="width: 100%"
+          >
+            Pay &amp; Reserve My Spot →
+          </button>
+
+          <div class="btn-row" style="margin-top: 14px; margin-bottom: 0">
+            <button
+              class="btn-back"
+              onclick="goStep(2)"
+              style="flex: 1; text-align: center"
+            >
+              ← Back
+            </button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-screen" id="success">
+          <div class="success-icon">🎉</div>
+          <h2>Your spot is reserved!</h2>
+          <p class="success-main">
+            We'll send you instructions for accessing the course one week before
+            it starts.
+          </p>
+          <div class="success-detail">
+            If you have any questions in the meantime, you can email us at<br />
+            <a href="mailto:hello@lingrolearning.com"
+              >hello@lingrolearning.com</a
+            >
+          </div>
+          <div class="success-divider"></div>
+          <div class="success-cert">
+            <span>🎓</span>
+            <p>
+              Don't forget — you'll receive a
+              <strong>Digital Certificate of Completion</strong> for your
+              portfolio once you finish your module.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ── STRIPE SETUP ──────────────────────────────────────────
+      // Replace with your Stripe publishable key:
+      const STRIPE_PUBLISHABLE_KEY =
+        "pk_live_51RU7u5J2PSRCR13j7GicOA0Wfl3PKYNTil1R9xu8vrVpXuNdRtaivfhfYqoKINYGIP2TIldx9lZl9jWrAMXe5dQp00x6GNsH3k";
+      let stripe, cardElement;
+
+      function initStripe() {
+        try {
+          stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+          const elements = stripe.elements({
+            fonts: [
+              {
+                cssSrc:
+                  "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap",
+              },
+            ],
+          });
+          cardElement = elements.create("card", {
+            style: {
+              base: {
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: "15px",
+                color: "#1a1a1a",
+                "::placeholder": { color: "#aaa" },
+              },
+              invalid: { color: "#d94040" },
+            },
+          });
+          cardElement.mount("#card-element");
+          cardElement.on("focus", () =>
+            document.getElementById("card-element").classList.add("focused"),
+          );
+          cardElement.on("blur", () =>
+            document.getElementById("card-element").classList.remove("focused"),
+          );
+          cardElement.on("change", (e) => {
+            document.getElementById("card-errors").textContent = e.error
+              ? e.error.message
+              : "";
+          });
+        } catch (e) {
+          document.getElementById("card-element").innerHTML =
+            '<p style="color:var(--muted);font-size:0.85rem;padding:8px 0">⚠️ Add your Stripe publishable key to enable payment.</p>';
+        }
+      }
+
+      // ── STATE ──────────────────────────────────────────────────
+      let currentStep = 1;
+      let selectedLevel = null;
+      let selectedPurchase = null;
+
+      // ── NAVIGATION ─────────────────────────────────────────────
+      function goStep(n) {
+        if (n > currentStep && !validateStep(currentStep)) return;
+        document
+          .getElementById("step" + currentStep)
+          .classList.remove("active");
+        currentStep = n;
+        document.getElementById("step" + n).classList.add("active");
+        const pct = { 1: 33, 2: 66, 3: 100 }[n] || 33;
+        document.getElementById("progress").style.width = pct + "%";
+        if (n === 3) updateSummary();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // ── VALIDATION ─────────────────────────────────────────────
+      function validateStep(step) {
+        let valid = true;
+        if (step === 1) {
+          const name = document.getElementById("full-name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const state = document.getElementById("state").value;
+          const college = document.getElementById("college").value.trim();
+          setError("f-name", !name);
+          setError("f-email", !email || !/^[^@]+@[^@]+\.[^@]+$/.test(email));
+          setError("f-state", !state);
+          setError("f-college", !college);
+          valid =
+            name &&
+            email &&
+            /^[^@]+@[^@]+\.[^@]+$/.test(email) &&
+            state &&
+            college;
+        }
+        if (step === 2) {
+          const noLevel = !selectedLevel;
+          const noPurchase = !selectedPurchase;
+          const needsModule =
+            selectedPurchase === "single" &&
+            !document.querySelector('input[name="module"]:checked');
+          document.getElementById("level-err").style.display = noLevel
+            ? "block"
+            : "none";
+          document.getElementById("purchase-err").style.display =
+            noPurchase || needsModule ? "block" : "none";
+          if (needsModule)
+            document.getElementById("purchase-err").textContent =
+              "Please select which module you want.";
+          else
+            document.getElementById("purchase-err").textContent =
+              "Please select a purchase option.";
+          valid = !noLevel && !noPurchase && !needsModule;
+        }
+        return valid;
+      }
+
+      function setError(id, hasError) {
+        document.getElementById(id).classList.toggle("error", hasError);
+      }
+
+      // ── SELECTIONS ─────────────────────────────────────────────
+      function selectModule(el) {
+        document
+          .querySelectorAll(".module-check")
+          .forEach((o) => o.classList.remove("selected"));
+        el.classList.add("selected");
+        document.getElementById("purchase-err").style.display = "none";
+      }
+
+      function selectLevel(el, val) {
+        document
+          .querySelectorAll(".level-opt")
+          .forEach((o) => o.classList.remove("selected"));
+        el.classList.add("selected");
+        selectedLevel = val;
+        document.getElementById("level-err").style.display = "none";
+      }
+
+      function selectPurchase(el, val) {
+        document
+          .querySelectorAll(".purchase-opt")
+          .forEach((o) => o.classList.remove("selected"));
+        el.classList.add("selected");
+        selectedPurchase = val;
+        document
+          .getElementById("module-picker")
+          .classList.toggle("visible", val === "single");
+        document.getElementById("purchase-err").style.display = "none";
+      }
+
+      // ── ORDER SUMMARY ──────────────────────────────────────────
+      function updateSummary() {
+        const moduleLabels = {
+          week1: "⚽ Week 1 — El Fútbol Mundial",
+          week2: "🎵 Week 2 — Bad Bunny & Music",
+          week3: "📱 Week 3 — Social Media & Digital Culture",
+          week4: "🍳 Week 4 — Food Culture",
+        };
+        let item, price;
+        if (selectedPurchase === "all4") {
+          item = "All 4 Modules — Full Summer Camp";
+          price = "$150";
+        } else {
+          const mod = document.querySelector('input[name="module"]:checked');
+          item = mod ? moduleLabels[mod.value] : "Single Module";
+          price = "$50";
+        }
+        document.getElementById("summary-item").textContent = item;
+        document.getElementById("summary-price").textContent = price;
+        document.getElementById("summary-total").textContent = price;
+      }
+
+      // ── PAYMENT ────────────────────────────────────────────────
+      async function handlePayment() {
+        const btn = document.getElementById("pay-btn");
+        btn.disabled = true;
+        btn.textContent = "Processing…";
+
+        // TODO: Create a PaymentIntent on your server and return client_secret
+        // then call: stripe.confirmCardPayment(clientSecret, { payment_method: { card: cardElement } })
+        // On success, show the success screen below.
+
+        // Placeholder simulation (remove when Stripe backend is connected):
+        setTimeout(() => {
+          document.getElementById("step3").classList.remove("active");
+          document.getElementById("success").classList.add("active");
+          document.getElementById("progress").style.width = "100%";
+        }, 1800);
+      }
+
+      // ── INIT ───────────────────────────────────────────────────
+      window.addEventListener("load", initStripe);
+    </script>
+  </body>
+</html>
