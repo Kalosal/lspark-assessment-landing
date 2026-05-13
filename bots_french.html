@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>French Conversation Bots — Lingro Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --blue: #1a6b9e;
+        --blue-dim: #e8f3fa;
+        --yellow: #f5a623;
+        --yellow-dim: #fef5e7;
+        --green: #3d7a57;
+        --green-dim: #eaf3ee;
+        --ink: #0f1c2a;
+        --ink-mid: #3a4a58;
+        --ink-muted: #7a8a98;
+        --rule: #e2e8ed;
+        --surface: #f7f9fb;
+        --white: #ffffff;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Nunito", sans-serif;
+        font-weight: 400;
+        background: var(--white);
+        color: var(--ink);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── NAV ── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--rule);
+        padding: 0 56px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+
+      .logo svg {
+        width: 32px;
+        height: 32px;
+      }
+
+      .logo-wordmark {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: 0.01em;
+      }
+
+      .logo-wordmark em {
+        font-style: normal;
+        color: var(--blue);
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+
+      .nav-link {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink-muted);
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        transition: color 0.2s;
+      }
+
+      .nav-link:hover {
+        color: var(--blue);
+      }
+
+      .nav-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--blue);
+        text-decoration: none;
+        transition: gap 0.2s;
+      }
+
+      .nav-back:hover {
+        gap: 10px;
+      }
+
+      /* ── PAGE HERO ── */
+      .page-hero {
+        background: var(--blue);
+        background-image:
+          radial-gradient(
+            circle at 95% 50%,
+            rgba(14, 63, 98, 0.55) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 5% 80%,
+            rgba(61, 122, 87, 0.2) 0%,
+            transparent 40%
+          );
+        color: var(--white);
+        padding: 64px 56px 72px;
+        text-align: center;
+      }
+
+      .page-hero-eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 16px;
+      }
+
+      .page-hero-access {
+        font-size: 20px;
+        font-weight: 300;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin-bottom: 20px;
+      }
+
+      .page-hero h1 {
+        font-size: 46px;
+        font-weight: 300;
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+        margin-bottom: 12px;
+      }
+
+      .page-hero h1 strong {
+        font-weight: 700;
+      }
+
+      .page-hero-sub {
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 560px;
+        margin: 0 auto;
+        line-height: 1.75;
+      }
+
+      /* ── CONTENT ── */
+      .content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 72px 56px 96px;
+      }
+
+      /* ── BOT CARDS ── */
+      .bot-card {
+        border: 1px solid var(--rule);
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 32px;
+        transition: box-shadow 0.2s;
+      }
+
+      .bot-card:hover {
+        box-shadow: 0 4px 32px rgba(26, 107, 158, 0.1);
+      }
+
+      .bot-card-header {
+        padding: 28px 36px 24px;
+        border-bottom: 1px solid var(--rule);
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+        background: var(--surface);
+      }
+
+      .bot-card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .meta-tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 999px;
+      }
+
+      .meta-tag.level-beginner {
+        background: var(--green-dim);
+        color: var(--green);
+      }
+
+      .meta-tag.level-advanced {
+        background: var(--yellow-dim);
+        color: #a06b10;
+      }
+
+      .meta-tag.program {
+        background: var(--blue-dim);
+        color: var(--blue);
+      }
+
+      .bot-card-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        margin-bottom: 4px;
+      }
+
+      .bot-card-unit {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.2;
+      }
+
+      .bot-card-body {
+        padding: 32px 36px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+
+      .outcomes-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        margin-bottom: 14px;
+      }
+
+      .outcomes-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .outcomes-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        color: var(--ink-mid);
+        line-height: 1.5;
+      }
+
+      .outcomes-list li::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--blue);
+        flex-shrink: 0;
+        margin-top: 6px;
+      }
+
+      .scenario-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        margin-bottom: 14px;
+      }
+
+      .scenario-box {
+        background: var(--blue-dim);
+        border-radius: 10px;
+        padding: 20px 22px;
+        margin-bottom: 20px;
+      }
+
+      .scenario-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--blue);
+        margin-bottom: 8px;
+        font-style: italic;
+      }
+
+      .scenario-desc {
+        font-size: 14px;
+        color: var(--ink-mid);
+        line-height: 1.7;
+      }
+
+      .btn-access {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--blue);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        padding: 13px 24px;
+        border-radius: 8px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .btn-access:hover {
+        background: #155a87;
+        transform: translateY(-1px);
+      }
+
+      .btn-access svg {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+
+      /* ── DIVIDER ── */
+      .divider-line {
+        border: none;
+        border-top: 1px solid var(--rule);
+        margin: 0;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 28px 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .footer-brand {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: 0.01em;
+      }
+
+      .footer-brand em {
+        font-style: normal;
+        color: var(--blue);
+      }
+
+      footer p {
+        font-size: 13px;
+        color: var(--ink-muted);
+      }
+
+      footer a {
+        color: var(--blue);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* ── REVEAL ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: reveal 0.6s ease forwards;
+      }
+
+      .reveal:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .reveal:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .reveal:nth-child(3) {
+        animation-delay: 0.25s;
+      }
+
+      @keyframes reveal {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 720px) {
+        header {
+          padding: 0 20px;
+        }
+        .page-hero {
+          padding: 48px 24px 56px;
+        }
+        .page-hero h1 {
+          font-size: 32px;
+        }
+        .content {
+          padding: 48px 24px 72px;
+        }
+        .bot-card-header {
+          flex-direction: column;
+          gap: 16px;
+          padding: 24px;
+        }
+        .bot-card-body {
+          grid-template-columns: 1fr;
+          gap: 28px;
+          padding: 24px;
+        }
+        footer {
+          flex-direction: column;
+          gap: 10px;
+          text-align: center;
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <a href="bots.html" class="logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="7" fill="#1a6b9e" />
+          <ellipse
+            cx="16"
+            cy="16"
+            rx="8"
+            ry="8"
+            fill="none"
+            stroke="white"
+            stroke-width="2"
+          />
+          <ellipse
+            cx="16"
+            cy="16"
+            rx="3.2"
+            ry="8"
+            fill="none"
+            stroke="white"
+            stroke-width="1.5"
+          />
+          <line
+            x1="8"
+            y1="16"
+            x2="24"
+            y2="16"
+            stroke="white"
+            stroke-width="1.5"
+          />
+          <circle cx="16" cy="16" r="2" fill="#f5a623" />
+        </svg>
+        <span class="logo-wordmark">Lingro<em>Learning</em></span>
+      </a>
+      <div class="nav-right">
+        <a href="mailto:hello@lingrolearning.com" class="nav-link"
+          >hello@lingrolearning.com</a
+        >
+        <a href="bots.html" class="nav-back">
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 12L6 8l4-4"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Back to overview
+        </a>
+      </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <p class="page-hero-eyebrow reveal">AI-Powered Conversation Bots</p>
+      <h1 class="reveal"><strong>French</strong></h1>
+      <p class="page-hero-access reveal">Early Demo Access</p>
+      <p class="page-hero-sub reveal">
+        AI Convobots are available in all of our first- and second-year
+        programs, each tied to the learning outcomes, vocabulary, and target
+        structures of the unit.
+      </p>
+    </section>
+
+    <hr class="divider-line" />
+
+    <!-- CONTENT -->
+    <main class="content">
+      <!-- BOT 1: BEGINNER -->
+      <div class="bot-card reveal">
+        <div class="bot-card-header">
+          <div>
+            <div class="bot-card-meta">
+              <span class="meta-tag level-beginner">Beginner</span>
+              <span class="meta-tag program">Chez nous 3.0 · Unit 1</span>
+            </div>
+            <div class="bot-card-title">Program</div>
+            <div class="bot-card-unit">Chez nous 3.0, Unit 1</div>
+          </div>
+        </div>
+        <div class="bot-card-body">
+          <div>
+            <div class="outcomes-label">Learning Outcomes</div>
+            <ul class="outcomes-list">
+              <li>Discuss characteristics, activities, and places</li>
+              <li>Talk about what people do in various locations</li>
+            </ul>
+          </div>
+          <div>
+            <div class="scenario-label">Scenario</div>
+            <div class="scenario-box">
+              <div class="scenario-title">Qu'est-ce que tu aimes faire?</div>
+              <p class="scenario-desc">
+                You're meeting a neighbor for the first time after moving into a
+                new neighborhood. Ask your neighbor where to go and what to do
+                in your town. Then talk about the things you like to do.
+              </p>
+            </div>
+            <a
+              href="https://lingro.retool.com/embedded/public/12f80a95-93a8-436b-91f6-46856f4961ca/assessmentv2?ep=24072f57-8039-4b24-bff1-277a1a4ed2c5"
+              target="_blank"
+              class="btn-access"
+            >
+              Access this bot
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-brand">Lingro<em>Learning</em></span>
+      <p>
+        Questions?
+        <a href="mailto:hello@lingrolearning.com">hello@lingrolearning.com</a>
+      </p>
+    </footer>
+  </body>
+</html>
