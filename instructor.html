@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lingro Learning — Instructor Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --blue: #1a6b9e;
+        --blue-dim: #e8f3fa;
+        --yellow: #f5a623;
+        --yellow-dim: #fef5e7;
+        --green: #3d7a57;
+        --green-dim: #eaf3ee;
+        --ink: #0f1c2a;
+        --ink-mid: #3a4a58;
+        --ink-muted: #7a8a98;
+        --rule: #e2e8ed;
+        --surface: #f7f9fb;
+        --white: #ffffff;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Nunito", sans-serif;
+        font-weight: 400;
+        background: var(--white);
+        color: var(--ink);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── NAV ── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--rule);
+        padding: 0 56px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--blue);
+        text-decoration: none;
+        letter-spacing: -0.02em;
+      }
+
+      .logo span {
+        color: var(--yellow);
+      }
+
+      .nav-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--blue);
+        background: var(--blue-dim);
+        padding: 4px 12px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* ── MAIN ── */
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 24px;
+      }
+
+      .coming-soon-card {
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .icon-wrap {
+        width: 96px;
+        height: 96px;
+        border-radius: 24px;
+        background: var(--blue-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 32px;
+      }
+
+      .icon-wrap svg {
+        width: 48px;
+        height: 48px;
+        color: var(--blue);
+      }
+
+      .eyebrow {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--blue);
+        margin-bottom: 12px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        margin-bottom: 20px;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        color: var(--ink-mid);
+        max-width: 480px;
+        margin: 0 auto 48px;
+      }
+
+      /* ── FEATURE PILLS ── */
+      .features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-bottom: 48px;
+      }
+
+      .feature-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 100px;
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--ink-mid);
+      }
+
+      .feature-pill .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--yellow);
+        flex-shrink: 0;
+      }
+
+      /* ── NOTIFY FORM ── */
+      .notify-form {
+        display: flex;
+        gap: 10px;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+
+      .notify-form input {
+        flex: 1;
+        padding: 12px 18px;
+        border: 1.5px solid var(--rule);
+        border-radius: 10px;
+        font-family: "Nunito", sans-serif;
+        font-size: 0.95rem;
+        color: var(--ink);
+        outline: none;
+        transition: border-color 0.2s;
+        background: var(--white);
+      }
+
+      .notify-form input::placeholder {
+        color: var(--ink-muted);
+      }
+
+      .notify-form input:focus {
+        border-color: var(--blue);
+      }
+
+      .notify-form button {
+        padding: 12px 22px;
+        background: var(--blue);
+        color: var(--white);
+        border: none;
+        border-radius: 10px;
+        font-family: "Nunito", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.2s, transform 0.15s;
+      }
+
+      .notify-form button:hover {
+        background: #155d8a;
+        transform: translateY(-1px);
+      }
+
+      .form-note {
+        font-size: 0.8rem;
+        color: var(--ink-muted);
+        margin-top: 12px;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 24px 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-size: 0.85rem;
+        color: var(--ink-muted);
+      }
+
+      footer a {
+        color: var(--blue);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 600px) {
+        header {
+          padding: 0 20px;
+        }
+
+        h1 {
+          font-size: 1.9rem;
+        }
+
+        .notify-form {
+          flex-direction: column;
+        }
+
+        footer {
+          padding: 24px 20px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="logo" href="#">LingroLearning</a>
+      <span class="nav-badge">Instructor Portal</span>
+    </header>
+
+    <main>
+      <div class="coming-soon-card">
+        <div class="icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h8m-8 4h5" />
+            <circle cx="18" cy="17" r="4" stroke="currentColor" stroke-width="1.8" fill="none"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 15.5v1.5l1 1"/>
+          </svg>
+        </div>
+
+        <p class="eyebrow">Instructor Dashboard</p>
+        <h1>Coming Soon</h1>
+        
+    </main>
+
+    <footer>
+      <span>Questions?</span>
+      <a href="mailto:hello@lingrolearning.com">hello@lingrolearning.com</a>
+    </footer>
+
+    <script>
+      function handleNotify(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector("button");
+        const input = document.getElementById("email-input");
+        btn.textContent = "You're on the list!";
+        btn.style.background = "#3d7a57";
+        btn.disabled = true;
+        input.disabled = true;
+        input.value = "";
+        input.placeholder = "Thanks — we'll be in touch!";
+      }
+    </script>
+  </body>
+</html>
