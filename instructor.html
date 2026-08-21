@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lingro Learning — Instructor Dashboard</title>
+    <meta http-equiv="refresh" content="0; url=https://instructor.lingrobots.xyz" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -288,10 +289,9 @@
         </div>
 
         <p class="eyebrow">Instructor Dashboard</p>
-        <h1>Almost Ready</h1>
-        <p class="subtitle">Your Instructor Dashboard for the Lingro AI Convo Bots is almost ready. We're just making some final updates to our reporting features and layouts so you can quickly find all the info you need!</p>
-        <p class="subtitle">Check back here on Friday, August 21st after 12:00 PM ET to see all the good stuff.</p>
-        <p class="subtitle">In the meantime, you can email <a href="mailto:hello@lingrolearning.com">hello@lingrolearning.com</a> with any questions.</p>
+        <h1>Redirecting...</h1>
+        <p class="subtitle">Taking you to the Lingro ConvoBots Instructor Dashboard...</p>
+        <p class="subtitle">If you are not redirected automatically, <a href="https://instructor.lingrobots.xyz">click here</a>.</p>
     </main>
 
     <footer>
@@ -300,17 +300,7 @@
     </footer>
 
     <script>
-      function handleNotify(e) {
-        e.preventDefault();
-        const btn = e.target.querySelector("button");
-        const input = document.getElementById("email-input");
-        btn.textContent = "You're on the list!";
-        btn.style.background = "#3d7a57";
-        btn.disabled = true;
-        input.disabled = true;
-        input.value = "";
-        input.placeholder = "Thanks — we'll be in touch!";
-      }
+      window.location.href = "https://instructor.lingrobots.xyz";
     </script>
   </body>
 </html>
