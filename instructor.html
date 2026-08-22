@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lingro Learning — Instructor Dashboard</title>
-    <meta http-equiv="refresh" content="0; url=https://instructor.lingrobots.xyz/sign-in" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -230,6 +229,27 @@
         margin-top: 12px;
       }
 
+      /* ── DASHBOARD BUTTON ── */
+      .dashboard-btn {
+        display: inline-block;
+        padding: 14px 28px;
+        background: var(--blue);
+        color: var(--white);
+        border: none;
+        border-radius: 10px;
+        font-family: "Nunito", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.15s;
+      }
+
+      .dashboard-btn:hover {
+        background: #155d8a;
+        transform: translateY(-1px);
+      }
+
       /* ── FOOTER ── */
       footer {
         border-top: 1px solid var(--rule);
@@ -289,9 +309,9 @@
         </div>
 
         <p class="eyebrow">Instructor Dashboard</p>
-        <h1>Redirecting...</h1>
-        <p class="subtitle">Taking you to the Lingro ConvoBots Instructor Dashboard...</p>
-        <p class="subtitle">If you are not redirected automatically, <a href="https://instructor.lingrobots.xyz/sign-in">click here</a>.</p>
+        <h1>Instructor Dashboard</h1>
+        <p class="subtitle">Click the link below to open the Lingro ConvoBots Instructor Dashboard</p>
+        <a class="dashboard-btn" href="https://instructor.lingrobots.xyz/sign-in" target="_blank" rel="noopener noreferrer">Open Instructor Dashboard</a>
     </main>
 
     <footer>
@@ -299,8 +319,5 @@
       <a href="mailto:hello@lingrolearning.com">hello@lingrolearning.com</a>
     </footer>
 
-    <script>
-      window.location.href = "https://instructor.lingrobots.xyz/sign-in";
-    </script>
   </body>
 </html>
