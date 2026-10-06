@@ -1,123 +1,578 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Terms &amp; Policies — LingroLearning</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Conversation Features Terms</title>
     <style>
-      .terms-card {
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        padding: 48px 56px;
-        max-width: 600px;
-        width: 100%;
-        margin: 40px auto;
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        line-height: 1.5;
       }
-
-      .terms-card h1 {
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: #0f75b8;
-        margin-bottom: 8px;
-      }
-
-      .terms-card .subtitle {
-        font-size: 0.95rem;
-        color: #777;
-        margin-bottom: 36px;
-      }
-
-      .terms-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .terms-list li a {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 18px 20px;
-        border: 1.5px solid #e5e7eb;
-        border-radius: 10px;
-        text-decoration: none;
-        color: #1a1a2e;
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition:
-          border-color 0.15s,
-          background-color 0.15s;
-      }
-
-      .terms-list li a:hover {
-        border-color: #0f75b8;
-        background-color: #f0f8ff;
-      }
-
-      .terms-list li a .icon {
-        flex-shrink: 0;
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        background-color: #e8f4fc;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-      }
-
-      .terms-list li a .arrow {
-        margin-left: auto;
-        color: #aaa;
-        font-size: 1rem;
-      }
-
-      .terms-list li a:hover .arrow {
-        color: #0f75b8;
+      img {
+        max-width: 100%;
+        height: auto;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="terms-card">
-        <h1>Terms &amp; Policies</h1>
-        <p class="subtitle">
-          Please review the following agreements before using LingroLearning.
-        </p>
-
-        <ul class="terms-list">
-          <li>
-            <a
-              href="https://lingrolearning.com/terms/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="icon">📄</span>
-              LingroLearning Terms of Use
-              <span class="arrow">↗</span>
-            </a>
-          </li>
-          <!-- <li>
-            <a href="https://lingrolearning.com/privacy-policy/" target="_blank" rel="noopener noreferrer">
-              <span class="icon">🔒</span>
-              LingroLearning Privacy Policy
-              <span class="arrow">↗</span>
-            </a>
-          </li> -->
-          <li>
-            <a href="ai-terms.html">
-              <span class="icon">🤖</span>
-              AI Chatbot Terms of Use
-              <span class="arrow">→</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <p>
+      <img
+        src="data:image/png;base64,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"
+      />
+    </p>
+    <p><strong>AI Conversation Features </strong></p>
+    <p><strong>Supplemental Terms and Conditions</strong></p>
+    <p><strong>Last Updated:</strong> <strong>October 2, 2026</strong></p>
+    <p>
+      These AI Conversation Features Supplemental Terms and Conditions (“AI
+      Terms”) govern your access to and use of the artificial
+      intelligence-powered conversation, tutoring, feedback, assessment,
+      translation, conversation bots, and related features (collectively, the
+      “AI Conversation Features”) provided by Lingro LLC, a New York limited
+      liability company and its affiliates, subsidiaries, successors, and
+      assigns (“LingroLearning,” “Lingro,” “we,” “us,” or “our”).
+    </p>
+    <p>
+      These AI Terms supplement LingroLearning’s general Terms of Use, Privacy
+      Policy, and any other applicable agreements. In the event of a conflict
+      between these AI Terms and the general Terms of Use, these AI Terms will
+      govern with respect to the AI Conversation Features.
+    </p>
+    <p>
+      By accessing or using the AI Conversation Features, you agree to be bound
+      by these AI Terms.
+    </p>
+    <p>For the purpose of these AI Terms, the following definitions apply:</p>
+    <ul>
+      <li>
+        <strong>"Services"</strong> means all software, platforms, applications,
+        content libraries, AI features, and related offerings made available by
+        LingroLearning, whether accessed via browser, mobile application, API,
+        or otherwise.
+      </li>
+      <li>
+        <strong>"Institution"</strong> means a school, school district, college,
+        university, or other educational organization that has entered into a
+        separate agreement or subscription with LingroLearning on behalf of its
+        instructors and students.
+      </li>
+      <li>
+        <strong>"Instructor"</strong> means a teacher, professor, tutor, or
+        other educational professional who uses the Services to assign, manage,
+        or monitor student activity.
+      </li>
+      <li>
+        <strong>"Student"</strong> means an individual who uses the Services for
+        language learning purposes under the supervision of an Instructor or
+        Institution.
+      </li>
+      <li>
+        <strong>"User"</strong> means any individual who accesses or uses the
+        Services, including Institutions, Instructors, and Students.
+      </li>
+      <li>
+        <strong>"Student Data"</strong> means any information directly related
+        to an identifiable student that is submitted to, collected by, or
+        generated through the Services, including educational records as defined
+        under FERPA.
+      </li>
+      <li>
+        <strong>"AI Conversation Features"</strong> means the interactive,
+        AI-powered language practice tools within the Services, including
+        text-based and voice-based conversation bots built on third-party AI
+        models.
+      </li>
+      <li>
+        <strong>"Account"</strong> means a registered user profile through which
+        a User accesses the Services.
+      </li>
+      <li>
+        <strong>"Institutional Agreement"</strong> means any separately executed
+        order form, data processing agreement, or contract between
+        LingroLearning and an Institution.
+      </li>
+    </ul>
+    <p><strong>1. Description of AI Conversation Features</strong></p>
+    <p>
+      The AI Conversation Features are designed to facilitate language learning
+      and practice through automated conversations, exercises, feedback,
+      corrections, translations, pronunciation guidance, and similar educational
+      interactions. They are intended to simulate realistic conversational
+      scenarios, provide corrective feedback, and support vocabulary and grammar
+      acquisition.
+    </p>
+    <p>
+      The AI Conversation Features may use machine learning models, large
+      language models, speech recognition technologies, text-to-speech
+      technologies, and other automated systems provided by LingroLearning
+      and/or third-party service providers.
+    </p>
+    <p>
+      The AI Conversation Features are intended for educational and
+      informational purposes only and are not intended to provide professional,
+      legal, medical, financial, immigration, employment, or other regulated
+      advice. The AI Conversation Features do not have a memory of prior
+      conversations unless such functionality has been explicitly enabled and
+      disclosed.
+    </p>
+    <p><strong>2. AI Disclosure</strong></p>
+    <p>You acknowledge and agree that:</p>
+    <p>
+      (a) The AI Conversation Features generate responses automatically using
+      artificial intelligence and machine learning technologies.
+    </p>
+    <p>
+      (b) Responses may not be reviewed, approved, endorsed, or monitored by a
+      human instructor before being presented to you.
+    </p>
+    <p>
+      (c) AI-generated responses may contain inaccuracies, omissions, biases
+      from underlying training data, mistranslations, culturally inappropriate
+      phrasing, outdated information, or other errors.
+    </p>
+    <p>
+      (d) The AI Conversation Features may generate content that appears
+      authoritative or human-like but may nevertheless be incorrect or
+      inappropriate.
+    </p>
+    <p>
+      (e) LingroLearning does not guarantee the accuracy, completeness,
+      reliability, suitability, legality, or educational effectiveness of any
+      AI-generated output.
+    </p>
+    <p>
+      (f) The AI Conversation Features are intended to supplement, not replace,
+      human language instruction, independent study, or professional judgment.
+    </p>
+    <p>
+      (g) You should approach AI-generated feedback critically and consult your
+      Instructor with questions about correctness or appropriateness.
+    </p>
+    <p><strong>3. Eligibility and International Use</strong></p>
+    <p>
+      You are responsible for ensuring that your use of the AI Conversation
+      Features complies with all applicable laws, regulations, and rules in the
+      jurisdiction from which you access the services.
+    </p>
+    <p>
+      The AI Conversation Features may not be available in all countries,
+      languages, or regions. LingroLearning reserves the right to limit, modify,
+      or discontinue access to the AI Conversation Features in any jurisdiction
+      at any time.
+    </p>
+    <p>
+      If you access the AI Conversation Features from outside the United States,
+      you acknowledge that your information may be transferred to, processed in,
+      and stored in the United States and other countries where LingroLearning
+      or its service providers operate.
+    </p>
+    <p><strong>4. User Content</strong></p>
+    <p>
+      You may provide text, audio, images, prompts, responses, recordings,
+      assignments, and other content to the AI Conversation Features (“User
+      Content”).
+    </p>
+    <p>
+      You retain ownership of your User Content, subject to the rights granted
+      in these AI Terms.
+    </p>
+    <p>You represent and warrant that:</p>
+    <p>
+      (a) You own or control all rights necessary to submit the User Content;
+    </p>
+    <p>
+      (b) Your User Content does not violate any law, regulation, contract, or
+      third-party right;
+    </p>
+    <p>
+      (c) Your User Content does not infringe any intellectual property,
+      privacy, publicity, confidentiality, or other rights of any person or
+      entity; and
+    </p>
+    <p>
+      (d) You have obtained all required permissions and consents for any
+      personal information contained in the User Content.
+    </p>
+    <p><strong>5. License to User Content</strong></p>
+    <p>
+      To provide, operate, maintain, improve, secure, and support the AI
+      Conversation Features, you grant LingroLearning a worldwide,
+      non-exclusive, royalty-free, transferable, sublicensable license to use,
+      host, store, reproduce, process, analyze, modify, adapt, transmit,
+      display, and create derivative works from your User Content.
+    </p>
+    <p>
+      This license continues for as long as reasonably necessary to provide the
+      services and fulfill the purposes described in these AI Terms and the
+      Privacy Policy.
+    </p>
+    <p><strong>6. AI Outputs and Ownership</strong></p>
+    <p>
+      Subject to your compliance with these AI Terms and applicable law,
+      LingroLearning assigns to you any rights it may have in the AI-generated
+      content specifically produced for you through your use of the AI
+      Conversation Features (“Output”).
+    </p>
+    <p>
+      The foregoing assignment is limited to the extent such rights are legally
+      transferable and does not apply to:
+    </p>
+    <p>
+      (a) The AI models, algorithms, software, systems, or underlying
+      technology;
+    </p>
+    <p>(b) LingroLearning intellectual property;</p>
+    <p>(c) Third-party intellectual property;</p>
+    <p>
+      (d) Generic concepts, methods, ideas, language-learning techniques,
+      prompts, workflows, or know-how; or
+    </p>
+    <p>(e) Output generated for other users.</p>
+    <p>You acknowledge that:</p>
+    <p>
+      (i) AI-generated Output may be similar or identical to content generated
+      for other users;
+    </p>
+    <p>
+      (ii) Similarity of outputs does not grant you ownership rights over
+      content generated for others; and
+    </p>
+    <p>
+      (iii) LingroLearning does not warrant that any Output is unique or
+      eligible for intellectual property protection.
+    </p>
+    <p>
+      You are solely responsible for evaluating the appropriateness of any
+      Output before relying on, publishing, sharing, or otherwise using it.
+    </p>
+    <p><strong>7. LingroLearning Intellectual Property</strong></p>
+    <p>
+      The AI Conversation Features, including all software, models, interfaces,
+      content, trademarks, service marks, logos, technology, training materials,
+      and related intellectual property, are owned by or licensed to
+      LingroLearning and are protected by applicable intellectual property laws.
+    </p>
+    <p>Except as expressly permitted by these AI Terms, you may not:</p>
+    <p>
+      (a) Copy, reproduce, distribute, sell, lease, sublicense, or commercialize
+      the AI Conversation Features;
+    </p>
+    <p>
+      (b) Reverse engineer, decompile, disassemble, or attempt to discover
+      source code, model weights, training data, or system architecture;
+    </p>
+    <p>(c) Remove or alter proprietary notices;</p>
+    <p>
+      (d) Use the AI Conversation Features to develop or train competing
+      products or services; or
+    </p>
+    <p>
+      (e) Extract data, outputs, or content through automated means except as
+      expressly authorized.
+    </p>
+    <p><strong>8. Data Usage and Model Training</strong></p>
+    <p>
+      LingroLearning may use User Content, interaction data, usage information,
+      feedback, corrections, performance metrics, and related information to:
+    </p>
+    <p>(a) Provide and operate the AI Conversation Features;</p>
+    <p>(b) Improve educational quality and user experience;</p>
+    <p>(c) Develop new features and products;</p>
+    <p>(d) Monitor performance, safety, security, and abuse;</p>
+    <p>(e) Conduct analytics and research; and</p>
+    <p>
+      (f) Train, fine-tune, evaluate, test, or improve machine learning and
+      artificial intelligence systems.
+    </p>
+    <p>
+      Where required by applicable law, LingroLearning will obtain any necessary
+      consent before using personal data for model training or similar purposes.
+    </p>
+    <p>
+      LingroLearning may also create aggregated, anonymized, de-identified, or
+      statistical information from user interactions and use such information
+      for lawful business purposes.
+    </p>
+    <p>
+      If LingroLearning offers a setting that permits users to opt out of
+      certain training uses, such opt-out will apply only as described in the
+      applicable policy or settings interface.
+    </p>
+    <p>
+      LingroLearning does not sell, license, or otherwise transfer conversation
+      data to third parties for any commercial purpose other than to provide and
+      operate the AI Conversation Features.
+    </p>
+    <p><strong>9. Privacy and Personal Information</strong></p>
+    <p>
+      Your use of the AI Conversation Features is subject to LingroLearning’s
+      Privacy Policy.
+    </p>
+    <p>
+      You should not submit highly sensitive information to the AI Conversation
+      Features unless expressly permitted by LingroLearning.
+    </p>
+    <p>Without limiting the foregoing, you should avoid sharing:</p>
+    <ul>
+      <li>Government identification numbers;</li>
+      <li>Financial account information;</li>
+      <li>Passwords and authentication credentials;</li>
+      <li>Highly sensitive health information;</li>
+      <li>Confidential business information;</li>
+      <li>Trade secrets;</li>
+      <li>
+        Information about minors unless authorized and legally permitted; and
+      </li>
+      <li>Any information that you are not authorized to disclose.</li>
+    </ul>
+    <p><strong>10. Acceptable Use Policy</strong></p>
+    <p>You may not use the AI Conversation Features to:</p>
+    <p>(a) Violate any law, regulation, or third-party right;</p>
+    <p>(b) Harass, threaten, abuse, exploit, or harm others;</p>
+    <p>
+      (c) Generate, distribute, or promote unlawful, fraudulent, deceptive, or
+      misleading content;
+    </p>
+    <p>
+      (d) Create or disseminate hateful, discriminatory, violent, extremist,
+      sexually explicit, or abusive content;
+    </p>
+    <p>
+      (e) Infringe intellectual property, privacy, publicity, or contractual
+      rights;
+    </p>
+    <p>
+      (f) Generate malware, malicious code, phishing materials, or unauthorized
+      access tools;
+    </p>
+    <p>
+      (g) Attempt to manipulate, “jailbreak,” or circumvent safety measures,
+      access controls, or usage restrictions;
+    </p>
+    <p>(h) Upload viruses, harmful code, or other disruptive materials;</p>
+    <p>(i) Impersonate any person or entity;</p>
+    <p>
+      (j) Submit content intended to manipulate, probe, extract, or discover
+      confidential aspects of the AI systems;
+    </p>
+    <p>
+      (k) Input personal information about you or others beyond what is
+      necessary for the language learning task at hand;
+    </p>
+    <p>
+      (l) Record or share AI conversation sessions outside the platform without
+      prior consent from LingroLearning and/or your Institution;
+    </p>
+    <p>
+      (m) Use the AI Conversation Features in a manner that could interfere with
+      the operation of the Services; or
+    </p>
+    <p>
+      (n) Use the AI Conversation Features for any high-risk activity where
+      inaccurate output could reasonably result in death, personal injury, legal
+      liability, or significant financial harm.
+    </p>
+    <p>
+      Violations may result in suspension of access to AI Conversation Features,
+      and in serious cases, suspension or termination of the Student's Account.
+    </p>
+    <p><strong>11. Educational Use Disclaimer</strong></p>
+    <p>
+      The AI Conversation Features are educational tools intended to support
+      language acquisition and practice.
+    </p>
+    <p>LingroLearning does not guarantee that:</p>
+    <p>(a) Any user will achieve a particular level of language proficiency;</p>
+    <p>(b) Any translation is accurate;</p>
+    <p>(c) Any pronunciation assessment is correct;</p>
+    <p>
+      (d) Any educational recommendation is appropriate for a particular
+      learner; or
+    </p>
+    <p>
+      (e) Any examination, certification, academic, or professional outcome will
+      be achieved.
+    </p>
+    <p>Individual learning results will vary.</p>
+    <p><strong>12. Monitoring and Enforcement</strong></p>
+    <p>
+      LingroLearning may monitor, review, filter, suspend, restrict, remove, or
+      investigate use of the AI Conversation Features to enforce these AI Terms,
+      comply with legal obligations, protect users, maintain security, or
+      improve service quality.
+    </p>
+    <p>
+      LingroLearning may suspend or terminate access to the AI Conversation
+      Features at any time if it reasonably believes a user has violated these
+      AI Terms or applicable law.
+    </p>
+    <p><strong>13. Third-Party AI Providers</strong></p>
+    <p>The AI Conversation Features are built using:</p>
+    <ul>
+      <li>
+        <strong>Anthropic's Claude</strong> large language model, which powers
+        the text understanding and response generation capabilities of the
+        conversation bots; and
+      </li>
+      <li>
+        <strong>ElevenLabs</strong> voice synthesis technology, which powers the
+        audio output of voice-based conversation bots.
+      </li>
+    </ul>
+    <p>
+      Your use of the AI Conversation Features is subject not only to these AI
+      Terms but also to the acceptable use policies of Anthropic and ElevenLabs,
+      which are found at
+      <a href="https://www.anthropic.com/legal/aup"
+        >https://www.anthropic.com/legal/aup</a
+      >
+      and
+      <a href="https://elevenlabs.io/terms-of-use"
+        >https://elevenlabs.io/terms-of-use</a
+      >, respectively. By using these features, you agree not to engage in any
+      conduct that would violate those policies.
+    </p>
+    <p>
+      LingroLearning may share User Content and related data with such
+      third-party providers as necessary to deliver the AI Conversation
+      Features, subject to applicable agreements and privacy protections.
+    </p>
+    <p>
+      LingroLearning is not responsible for interruptions, limitations, errors,
+      or changes caused by third-party providers.
+    </p>
+    <h2><strong>14. Voice Features and ElevenLabs</strong></h2>
+    <h3>
+      Certain AI Conversation Features include synthesized voice output
+      generated by ElevenLabs technology. These voices are algorithmically
+      generated and do not represent any real person. No voice biometric data
+      belonging to any User is collected for voice synthesis purposes. Where
+      voice input is enabled, Students' spoken audio is transmitted to
+      LingroLearning's servers and processed for the purposes described herein.
+      Audio data is treated as Student Data and is subject to the same
+      protections. Audio recordings of students are subject to applicable state
+      laws governing biometric or audio data (including, where applicable, the
+      Illinois Biometric Information Privacy Act and equivalent laws).
+      Institutions operating in jurisdictions with such laws are responsible for
+      ensuring that appropriate consents have been obtained prior to enabling
+      voice features for their students. Students can opt out of voice features
+      at any time and request a text-only version. Students who have concerns
+      about voice data collection should raise them with their Instructor or
+      Institution before using voice-enabled features.
+    </h3>
+    <p><strong>15. No Warranties</strong></p>
+    <p>
+      TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE AI CONVERSATION FEATURES ARE
+      PROVIDED “AS IS” AND “AS AVAILABLE.”
+    </p>
+    <p>
+      LINGROLEARNING DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED,
+      STATUTORY, OR OTHERWISE, INCLUDING WARRANTIES OF:
+    </p>
+    <ul>
+      <li>ACCURACY;</li>
+      <li>MERCHANTABILITY;</li>
+      <li>FITNESS FOR A PARTICULAR PURPOSE;</li>
+      <li>TITLE;</li>
+      <li>NON-INFRINGEMENT;</li>
+      <li>AVAILABILITY;</li>
+      <li>RELIABILITY; AND</li>
+      <li>ERROR-FREE OPERATION.</li>
+    </ul>
+    <p>
+      LINGROLEARNING DOES NOT WARRANT THAT THE AI CONVERSATION FEATURES WILL
+      PRODUCE ACCURATE, COMPLETE, CONSISTENT, OR SUITABLE RESULTS.
+    </p>
+    <p><strong>16. Limitation of Liability</strong></p>
+    <p>
+      TO THE MAXIMUM EXTENT PERMITTED BY LAW, LINGROLEARNING AND ITS AFFILIATES,
+      OFFICERS, DIRECTORS, EMPLOYEES, CONTRACTORS, LICENSORS, AND SERVICE
+      PROVIDERS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+      CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES.
+    </p>
+    <p>
+      TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE TOTAL AGGREGATE LIABILITY OF
+      LINGROLEARNING ARISING OUT OF OR RELATING TO THE AI CONVERSATION FEATURES
+      SHALL NOT EXCEED THE AMOUNT PAID BY YOU TO LINGROLEARNING FOR ACCESS TO
+      THE AI CONVERSATION FEATURES DURING THE TWELVE (12) MONTHS PRECEDING THE
+      CLAIM.
+    </p>
+    <p>
+      THESE LIMITATIONS APPLY REGARDLESS OF THE THEORY OF LIABILITY AND EVEN IF
+      A REMEDY FAILS OF ITS ESSENTIAL PURPOSE.
+    </p>
+    <p>
+      SOME JURISDICTIONS DO NOT ALLOW CERTAIN LIMITATIONS OF LIABILITY, SO SOME
+      OF THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU.
+    </p>
+    <p><strong>17. Indemnification</strong></p>
+    <p>
+      You agree to defend, indemnify, and hold harmless LingroLearning and its
+      affiliates, officers, directors, employees, agents, licensors, and service
+      providers from and against any claims, damages, liabilities, losses,
+      costs, and expenses (including reasonable attorneys’ fees) arising from:
+    </p>
+    <p>(a) Your use of the AI Conversation Features;</p>
+    <p>(b) Your User Content;</p>
+    <p>(c) Your violation of these AI Terms;</p>
+    <p>(d) Your violation of applicable law; or</p>
+    <p>(e) Your infringement or misappropriation of any third-party rights.</p>
+    <p><strong>18. Changes to AI Conversation Features</strong></p>
+    <p>
+      LingroLearning may modify, replace, enhance, restrict, suspend, or
+      discontinue any AI Conversation Feature at any time without liability.
+    </p>
+    <p>
+      LingroLearning does not guarantee continued availability of any particular
+      AI model, functionality, language, capability, or feature.
+    </p>
+    <h3><strong>19. Logging and Storage of Conversations</strong></h3>
+    <p>
+      AI conversation sessions — including both text inputs and voice
+      interactions — are <strong>logged and stored</strong> by LingroLearning.
+      This storage serves the following purposes:
+    </p>
+    <ol>
+      <li>
+        Enabling Instructors and Institutions to review Student progress and
+        engagement;
+      </li>
+      <li>Safety monitoring and detection of policy violations;</li>
+      <li>Quality assurance and debugging of the AI Conversation Features;</li>
+      <li>Improvement of the Services as described in these AI Terms.</li>
+    </ol>
+    <p>
+      Institutions may request access to, or deletion of, conversation logs in
+      the same manner as other Student Data.
+    </p>
+    <p><strong>20. Governing Law and Dispute Resolution</strong></p>
+    <p>
+      These AI Terms shall be governed by the laws specified in LingroLearning’s
+      general Terms of Use, without regard to conflict-of-law principles.
+    </p>
+    <p>
+      Nothing in these AI Terms limits any mandatory consumer rights that may
+      apply under local law.
+    </p>
+    <p><strong>21. Severability</strong></p>
+    <p>
+      If any provision of these AI Terms is found unenforceable, the remaining
+      provisions shall remain in full force and effect.
+    </p>
+    <p><strong>22. Feedback</strong></p>
+    <p>
+      LingroLearning continuously works to configure and fine-tune AI prompts
+      and guardrails to ensure age-appropriate and educationally appropriate
+      outputs. However, <strong>no AI system is perfect</strong>, and
+      Instructors are encouraged to monitor Student use and report unexpected
+      outputs to hello@lingrolearning.com.
+    </p>
+    <p><strong>23. Contact Information</strong></p>
+    <p>Questions regarding these AI Terms may be directed to:</p>
+    <p>Lingro LLC <br />hello@lingrolearning.com<br />lingrolearning.com</p>
   </body>
 </html>
